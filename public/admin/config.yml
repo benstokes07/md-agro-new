@@ -1,0 +1,35 @@
+backend:
+  name: git-gateway
+  branch: main # Branch to update (optional; defaults to master)
+
+# This line should not be changed
+media_folder: "public/uploads" # Media files will be stored in the repo under public/uploads
+public_folder: "/uploads" # The src attribute for uploaded media will be /uploads
+
+collections:
+  - name: "products" # Used in routes, e.g., /admin/collections/products
+    label: "Products" # Used in the UI
+    folder: "content/products" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
+    fields: # The fields for each document, usually in front matter
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Slug", name: "slug", widget: "string", hint: "URL-friendly version of the name, e.g. super-grow" }
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options:
+          - { label: "NPK Fertilizers", value: "NPK Fertilizers" }
+          - { label: "Organic Fertilizers", value: "Organic Fertilizers" }
+          - { label: "Soil Conditioners", value: "Soil Conditioners" }
+          - { label: "Other", value: "Other" }
+      - { label: "Image", name: "image", widget: "image" }
+      - { label: "Tagline", name: "tagline", widget: "string", required: false }
+      - { label: "Specifications", name: "specifications", widget: "markdown", hint: "Short description or NPK ratio" }
+      - { label: "Benefits", name: "benefits", widget: "markdown" }
+      - { label: "Composition", name: "composition", widget: "markdown" }
+      - { label: "Usage Instructions", name: "usageInstructions", widget: "markdown" }
+      - { label: "Safety Information", name: "safetyInformation", widget: "markdown" }
+      - { label: "Packaging Sizes", name: "packagingSizes", widget: "string", hint: "e.g. 500g, 1kg, 5kg, 25kg" }
+      - { label: "Suitable Crops", name: "suitableCrops", widget: "string", hint: "e.g. Tomato, Paddy, Wheat, Cotton" }
+

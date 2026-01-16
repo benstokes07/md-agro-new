@@ -1,0 +1,90 @@
+/**
+ * Core Philosophy: This ruleset enforces a strict Role-Based Access Control (RBAC) model.
+ * A specific group of users, designated as 'admins', are granted full modification
+ * privileges over the product catalog. All other users, including anonymous visitors,
+ * have read-only access to the products. This supports a public-facing catalog that
+ * can only be managed by authorized personnel.
+ *
+ * Data Structure: The data is organized into two primary top-level collections:
+ * - /products/{productId}: Contains all public product information.
+ * - /roles_admin/{adminId}: A private collection where the document ID is a user's
+ *   UID. The existence of a document in this collection signifies that the user is an admin.
+ *
+ * Key Security Decisions:
+ * - Public Product Catalog: The /products collection is world-readable to allow any
+ *   website visitor to view the product listings.
+ * - Admin-Only Writes: All write operations (create, update, delete) on the /products
+ *   collection are restricted to users whose UID is present in the /roles_admin collection.
+ * - Secure Role Management: The /roles_admin collection is locked down to prevent
+ *   any client-side modifications. This is a critical security measure to prevent users
+ *   from escalating their own privileges. Admin roles must be managed using the
+ *   Firebase Admin SDK in a trusted server environment.
+ * - Default Deny: All operations are denied by default unless explicitly allowed by a rule.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions for readable, reusable logic
+    
+    /**
+     * Checks if the current request is from an authenticated user.
+     */
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    /**
+     * Checks if the requesting user's UID matches the provided userId.
+     * Used for ownership-based access control.
+     */
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+    
+    /**
+     * Checks if the requesting user has admin privileges.
+     * Admin status is granted if a document with the user's UID exists
+     * in the /roles_admin collection.
+     */
+    function isAdmin() {
+      return isSignedIn() && exists(/databases/$(database)/documents/roles_admin/$(request.auth.uid));
+    }
+
+    /**
+     * @description
+     *   Manages the list of administrators. The existence of a document grants
+     *   admin privileges to the user whose UID matches the document ID. This
+     *   collection is read-only from the client to prevent privilege escalation.
+     * @path /roles_admin/{adminId}
+     * @allow (get) An admin with UID 'admin_abc' reads their own role document at /roles_admin/admin_abc.
+     * @deny (create) Any user, including another admin, attempts to create a new document at /roles_admin/new_admin_xyz.
+     * @principle Prevents client-side privilege escalation. Admin roles must be managed via a trusted backend (Admin SDK).
+     */
+    match /roles_admin/{adminId} {
+      allow get: if isOwner(adminId);
+      allow list: if false;
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    /**
+     * @description
+     *   Defines rules for the public product catalog. Allows anyone to read
+     *   product data, but restricts all write operations (creating, editing,
+     *   deleting products) to authenticated administrators.
+     * @path /products/{productId}
+     * @allow (get) An anonymous user reads a product document at /products/product_123.
+     * @deny (update) A signed-in, non-admin user attempts to update /products/product_123.
+     * @principle Enforces public read access while restricting modifications to users with a specific role (Admin).
+     */
+    match /products/{productId} {
+      allow get: if true;
+      allow list: if true;
+      allow create: if isAdmin();
+      allow update: if isAdmin() && resource != null;
+      allow delete: if isAdmin() && resource != null;
+    }
+  }
+}

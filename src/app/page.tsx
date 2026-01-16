@@ -1,0 +1,111 @@
+import Image from 'next/image';
+import Link from 'next/link';
+import { ArrowRight, Leaf, Users, TestTubeDiagonal } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { ProductCard } from '@/components/product-card';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { getProducts } from '@/lib/products-server';
+import type { Product } from '@/lib/products-server';
+
+export default async function Home() {
+  const heroImage = PlaceHolderImages.find(img => img.id === 'hero-image');
+  const allProducts = await getProducts();
+  const featuredProducts = allProducts.slice(0, 3);
+
+  return (
+    <div className="flex flex-col">
+      {/* Hero Section */}
+      <section className="relative h-[60vh] md:h-[80vh] w-full flex items-center justify-center text-center text-white">
+        {heroImage && (
+          <Image
+            src={heroImage.imageUrl}
+            alt={heroImage.description}
+            fill
+            priority
+            className="object-cover"
+            data-ai-hint={heroImage.imageHint}
+          />
+        )}
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="relative z-10 max-w-4xl p-4">
+          <h1 className="font-headline text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-shadow-lg">
+            Rooted in trust , Growing your success
+          </h1>
+          <p className="mt-4 text-lg md:text-xl max-w-2xl mx-auto">
+            MD Agro Solutions provides advanced fertilizers and soil conditioners to empower farmers and cultivate a sustainable future.
+          </p>
+          <div className="mt-8 flex justify-center gap-4">
+            <Button asChild size="lg" className="font-bold">
+              <Link href="/products">
+                Explore Fertilizers <ArrowRight className="ml-2" />
+              </Link>
+            </Button>
+            <Button asChild size="lg" variant="secondary">
+              <Link href="/contact">Contact Us</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Products Section */}
+      <section id="products" className="py-16 md:py-24 bg-background">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-headline font-bold text-center text-primary mb-4">
+            Our Key Fertilizers
+          </h2>
+          <p className="text-center max-w-2xl mx-auto text-lg mb-12">
+            Discover our range of high-performance fertilizers designed for maximum yield and soil health.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {featuredProducts.map((product) => (
+              <ProductCard key={product.slug} product={product} />
+            ))}
+          </div>
+          <div className="text-center mt-12">
+            <Button asChild variant="outline" size="lg">
+              <Link href="/products">View All Products</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us Section */}
+      <section className="py-16 md:py-24 bg-card">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-headline font-bold text-center text-primary mb-12">
+            Why Partner with MD Agro Solutions?
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div className="flex flex-col items-center">
+              <div className="flex items-center justify-center h-16 w-16 rounded-full bg-primary text-primary-foreground mb-4">
+                <Leaf className="h-8 w-8" />
+              </div>
+              <h3 className="text-xl font-headline font-bold mb-2">Premium Ingredients</h3>
+              <p>
+                Our fertilizers undergo rigorous testing to ensure they meet the highest standards of quality and nutrient purity.
+              </p>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="flex items-center justify-center h-16 w-16 rounded-full bg-primary text-primary-foreground mb-4">
+                <TestTubeDiagonal className="h-8 w-8" />
+              </div>
+              <h3 className="text-xl font-headline font-bold mb-2">Science-Backed Formulas</h3>
+              <p>
+                We leverage the latest in soil science to create nutrient solutions that solve modern farming challenges.
+              </p>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="flex items-center justify-center h-16 w-16 rounded-full bg-primary text-primary-foreground mb-4">
+                <Users className="h-8 w-8" />
+              </div>
+              <h3 className="text-xl font-headline font-bold mb-2">Farmer-First Approach</h3>
+              <p>
+                Your success is our priority. We provide comprehensive support and guidance to help you enrich your soil and boost yields.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}

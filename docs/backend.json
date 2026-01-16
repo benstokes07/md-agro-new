@@ -1,0 +1,142 @@
+{
+  "entities": {
+    "Product": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Product",
+      "type": "object",
+      "description": "Represents an agricultural product.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the product."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the product."
+        },
+        "slug": {
+          "type": "string",
+          "description": "Slug for the product, used in the URL."
+        },
+        "category": {
+          "type": "string",
+          "description": "Category of the product."
+        },
+        "image": {
+          "type": "string",
+          "description": "URL of the product image."
+        },
+        "specifications": {
+          "type": "string",
+          "description": "Specifications of the product."
+        },
+        "composition": {
+          "type": "string",
+          "description": "Composition of the product."
+        },
+        "usageInstructions": {
+          "type": "string",
+          "description": "Instructions on how to use the product."
+        },
+        "benefits": {
+          "type": "string",
+          "description": "Benefits of using the product."
+        },
+        "safetyInformation": {
+          "type": "string",
+          "description": "Safety information for the product."
+        },
+        "packagingSizes": {
+          "type": "string",
+          "description": "Available packaging sizes of the product."
+        },
+        "suitableCrops": {
+          "type": "string",
+          "description": "Crops for which the product is suitable."
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "slug",
+        "category",
+        "image",
+        "specifications",
+        "composition",
+        "usageInstructions",
+        "benefits",
+        "safetyInformation",
+        "packagingSizes",
+        "suitableCrops"
+      ]
+    },
+    "Admin": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Admin",
+      "type": "object",
+      "description": "Represents an administrator user who can manage products.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the admin user."
+        },
+        "username": {
+          "type": "string",
+          "description": "Username of the admin user."
+        },
+        "hashedPassword": {
+          "type": "string",
+          "description": "Hashed password of the admin user."
+        }
+      },
+      "required": [
+        "id",
+        "username",
+        "hashedPassword"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/roles_admin/{adminId}",
+        "definition": {
+          "entityName": "Admin",
+          "schema": {
+            "$ref": "#/backend/entities/Admin"
+          },
+          "description": "Collection of admin users. Document existence grants admin privileges. Used to secure product modification. Requires 'id', 'username', and 'hashedPassword'.",
+          "params": [
+            {
+              "name": "adminId",
+              "description": "The unique identifier of the admin user."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/products/{productId}",
+        "definition": {
+          "entityName": "Product",
+          "schema": {
+            "$ref": "#/backend/entities/Product"
+          },
+          "description": "Collection of all products. Requires 'id', 'name', 'slug', 'category', 'image', 'specifications', 'composition', 'usageInstructions', 'benefits', 'safetyInformation', 'packagingSizes', and 'suitableCrops'.",
+          "params": [
+            {
+              "name": "productId",
+              "description": "The unique identifier of the product."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "Given the requirement for a static website with no backend database, Firestore is not necessary. The product data should be stored in JSON or Markdown files as requested, and no database interactions are required. The admin functionality, which involves adding or removing products, translates to directly modifying the JSON/Markdown files.  Since there is no actual database, there is no security to configure or data structure to design for Firestore. The `admins/{adminId}` collection structure *would* be appropriate if the requirements included dynamic data and authentication. But since these are explicitly excluded, it is not required."
+  }
+}
