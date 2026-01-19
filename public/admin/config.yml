@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: benstokes07/mdd-agroo
+  repo: benstokes07/md-agro-new
   branch: main
   auth_type: pkce
   oauth_proxy_url: https://decap-oauth-proxy.netlify.app
@@ -14,25 +14,22 @@ collections:
     folder: "content/products"
     create: true
     slug: "{{slug}}"
-    editor:
-      preview: true
     fields:
       - { label: "Product Name", name: "name", widget: "string" }
-      - { label: "Slug", name: "slug", widget: "string", hint: "URL-friendly name e.g. super-grow" }
+      - { label: "Slug", name: "slug", widget: "string" }
       - label: "Category"
         name: "category"
         widget: "select"
         options:
-          - { label: "NPK Fertilizers", value: "NPK Fertilizers" }
-          - { label: "Organic Fertilizers", value: "Organic Fertilizers" }
-          - { label: "Soil Conditioners", value: "Soil Conditioners" }
-          - { label: "Other", value: "Other" }
+          - "NPK Fertilizers"
+          - "Organic Fertilizers"
+          - "Soil Conditioners"
+          - "Other"
       - { label: "Product Image", name: "image", widget: "image" }
-      - { label: "Tagline", name: "tagline", widget: "string", required: false }
       - { label: "Specifications", name: "specifications", widget: "markdown" }
       - { label: "Benefits", name: "benefits", widget: "markdown" }
       - { label: "Composition", name: "composition", widget: "markdown" }
-      - { label: "Usage Instructions", name: "usageInstructions", widget: "markdown" }
-      - { label: "Safety Information", name: "safetyInformation", widget: "markdown" }
-      - { label: "Packaging Sizes", name: "packagingSizes", widget: "string" }
-      - { label: "Suitable Crops", name: "suitableCrops", widget: "string" }
+      - { label: "Usage Instructions", name: "usage", widget: "markdown" }
+      - { label: "Safety Info", name: "safety", widget: "markdown" }
+      - { label: "Packaging Sizes", name: "packaging", widget: "string" }
+      - { label: "Suitable Crops", name: "crops", widget: "string" }
