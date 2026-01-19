@@ -1,6 +1,9 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: benstokes07/mdd-agroo
   branch: main
+  auth_type: implicit
+  app_id: Ov23liCijDQLNvsk7JhH
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
@@ -11,25 +14,63 @@ collections:
     folder: "content/products"
     create: true
     slug: "{{slug}}"
+    editor:
+      preview: true
     fields:
-      - { label: "Name", name: "name", widget: "string" }
-      - { label: "Slug", name: "slug", widget: "string", hint: "URL-friendly version, e.g. super-grow" }
+      - label: "Product Name"
+        name: "name"
+        widget: "string"
+
+      - label: "Slug"
+        name: "slug"
+        widget: "string"
+        hint: "URL-friendly name. Example: super-grow"
 
       - label: "Category"
         name: "category"
-        widget: select
+        widget: "select"
         options:
           - { label: "NPK Fertilizers", value: "NPK Fertilizers" }
           - { label: "Organic Fertilizers", value: "Organic Fertilizers" }
           - { label: "Soil Conditioners", value: "Soil Conditioners" }
           - { label: "Other", value: "Other" }
 
-      - { label: "Image", name: "image", widget: "image" }
-      - { label: "Tagline", name: "tagline", widget: "string", required: false }
-      - { label: "Specifications", name: "specifications", widget: "markdown" }
-      - { label: "Benefits", name: "benefits", widget: "markdown" }
-      - { label: "Composition", name: "composition", widget: "markdown" }
-      - { label: "Usage Instructions", name: "usageInstructions", widget: "markdown" }
-      - { label: "Safety Information", name: "safetyInformation", widget: "markdown" }
-      - { label: "Packaging Sizes", name: "packagingSizes", widget: "string" }
-      - { label: "Suitable Crops", name: "suitableCrops", widget: "string" }
+      - label: "Product Image"
+        name: "image"
+        widget: "image"
+
+      - label: "Tagline"
+        name: "tagline"
+        widget: "string"
+        required: false
+
+      - label: "Specifications"
+        name: "specifications"
+        widget: "markdown"
+        hint: "Short description or NPK ratio"
+
+      - label: "Benefits"
+        name: "benefits"
+        widget: "markdown"
+
+      - label: "Composition"
+        name: "composition"
+        widget: "markdown"
+
+      - label: "Usage Instructions"
+        name: "usageInstructions"
+        widget: "markdown"
+
+      - label: "Safety Information"
+        name: "safetyInformation"
+        widget: "markdown"
+
+      - label: "Packaging Sizes"
+        name: "packagingSizes"
+        widget: "string"
+        hint: "Example: 500g, 1kg, 5kg, 25kg"
+
+      - label: "Suitable Crops"
+        name: "suitableCrops"
+        widget: "string"
+        hint: "Example: Tomato, Wheat, Cotton, Paddy"
