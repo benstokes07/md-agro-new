@@ -1,4 +1,3 @@
-
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
@@ -16,12 +15,12 @@ export default function AboutUsPage() {
             Pioneering the Future of Agriculture
           </h1>
           <p className="mt-6 max-w-2xl mx-auto text-lg text-foreground/80">
-            At MD Agro Solutions, we are dedicated to merging tradition with technology to create a more prosperous and sustainable world for farmers.
+            At MD Agro Solution, we are dedicated to merging tradition with technology to create a more prosperous and sustainable world for farmers.
           </p>
         </div>
 
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card className="text-center">
+            <Card className="text-center animate-slide-up">
                 <CardHeader>
                     <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
                         <Goal className="h-6 w-6" />
@@ -32,7 +31,7 @@ export default function AboutUsPage() {
                     To empower farmers with high-quality, innovative, and sustainable agricultural products that enhance productivity and profitability while preserving the environment.
                 </CardContent>
             </Card>
-            <Card className="text-center">
+            <Card className="text-center animate-slide-up">
                 <CardHeader>
                     <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
                         <Lightbulb className="h-6 w-6" />
@@ -43,7 +42,7 @@ export default function AboutUsPage() {
                    To be a global leader in agricultural solutions, recognized for our commitment to quality, farmer success, and ecological balance.
                 </CardContent>
             </Card>
-            <Card className="text-center">
+            <Card className="text-center animate-slide-up">
                 <CardHeader>
                     <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
                         <Tractor className="h-6 w-6" />
@@ -58,20 +57,23 @@ export default function AboutUsPage() {
 
         <div className="mt-24 text-center">
           <h2 className="text-3xl md:text-4xl font-headline font-bold text-primary mb-12">Meet Our Leadership</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-3xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <div className="flex flex-col items-center">
-              <div className="relative w-40 h-40 rounded-full overflow-hidden shadow-lg mb-4">
-                <Image src="https://picsum.photos/seed/person1/200/200" alt="Tipayale Dipali Sainath" fill className="object-cover" />
+              <div className="relative w-40 h-40 rounded-full overflow-hidden shadow-lg mb-4 hover:scale-105 transition-transform">
+                <Image src="https://picsum.photos/seed/founder/200/200" alt="Dipali Mukund Shelake" fill className="object-cover" />
               </div>
-              <h3 className="text-xl font-headline font-semibold">Tipayale Dipali Sainath</h3>
-              <p className="text-sm text-primary font-medium">Owner: Shelke Mukund Punjaram</p>
+              <h3 className="text-2xl font-headline font-bold text-primary">Dipali Mukund Shelake</h3>
+              <p className="text-lg text-primary font-semibold mb-1">Founder</p>
+              <p className="text-sm text-muted-foreground text-center max-w-xs">
+                Visionary leader driving innovation in agricultural solutions
+              </p>
             </div>
             <div className="flex flex-col items-center">
-              <div className="relative w-40 h-40 rounded-full overflow-hidden shadow-lg mb-4">
-                <Image src="https://picsum.photos/seed/person2/200/200" alt="Shelke Mukund Punjaram" fill className="object-cover" />
+              <div className="relative w-40 h-40 rounded-full overflow-hidden shadow-lg mb-4 hover:scale-105 transition-transform">
+                <Image src="https://picsum.photos/seed/cofounder/200/200" alt="Shelke Mukund Punjaram" fill className="object-cover" />
               </div>
               <h3 className="text-xl font-headline font-semibold">Shelke Mukund Punjaram</h3>
-              <p className="text-sm text-primary font-medium">Owner</p>
+              <p className="text-sm text-primary font-medium">Co-Founder & Director</p>
             </div>
           </div>
         </div>

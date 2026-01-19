@@ -5,7 +5,7 @@ import { Footer } from '@/components/layout/footer';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'MD Agro Solutions - Advanced Fertilizer & Soil Health Experts',
+  title: 'MD Agro Solution - Advanced Fertilizer & Soil Health Experts',
   description: 'Specialized fertilizers and soil conditioners for optimal crop yield and sustainable agriculture.',
 };
 

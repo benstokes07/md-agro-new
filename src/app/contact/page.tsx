@@ -21,7 +21,7 @@ export default function ContactPage() {
 
         <div className="mt-16 grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
             <div className="lg:col-span-1 space-y-8">
-                <Card>
+                <Card className="animate-fade-in">
                     <CardContent className="pt-6 flex items-start gap-4">
                         <div className="flex-shrink-0 w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center">
                             <MapPin className="w-6 h-6" />
@@ -32,7 +32,7 @@ export default function ContactPage() {
                         </div>
                     </CardContent>
                 </Card>
-                <Card>
+                <Card className="animate-fade-in">
                     <CardContent className="pt-6 flex items-start gap-4">
                         <div className="flex-shrink-0 w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center">
                             <Mail className="w-6 h-6" />
@@ -43,7 +43,7 @@ export default function ContactPage() {
                         </div>
                     </CardContent>
                 </Card>
-                <Card>
+                <Card className="animate-fade-in">
                     <CardContent className="pt-6 flex items-start gap-4">
                         <div className="flex-shrink-0 w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center">
                             <Phone className="w-6 h-6" />
@@ -57,7 +57,7 @@ export default function ContactPage() {
             </div>
             
             <div className="lg:col-span-2">
-                <Card className="p-6 md:p-8">
+                <Card className="p-6 md:p-8 animate-fade-in">
                     <form name="contact" method="POST" data-netlify="true">
                         <input type="hidden" name="form-name" value="contact" />
                         <div className="space-y-6">
@@ -79,7 +79,7 @@ export default function ContactPage() {
                                 <label htmlFor="message" className="text-sm font-medium">Message</label>
                                 <Textarea id="message" name="message" placeholder="Your message..." rows={6} required />
                             </div>
-                            <Button type="submit" className="w-full md:w-auto" size="lg">Send Message</Button>
+                            <Button type="submit" className="w-full md:w-auto hover:scale-105 transition-transform" size="lg">Send Message</Button>
                         </div>
                     </form>
                 </Card>

@@ -1,36 +1,55 @@
-import { notFound } from 'next/navigation';
-import Image from 'next/image';
-import Link from 'next/link';
-import { getProducts, getProductBySlug } from '@/lib/products-server';
-import { slugify } from '@/lib/utils';
-import { Badge } from '@/components/ui/badge';
-import ReactMarkdown from 'react-markdown';
+import { notFound } from "next/navigation";
+import Image from "next/image";
+import Link from "next/link";
+import {
+  getProducts,
+  getProductBySlug,
+  type Product,
+} from "@/lib/products-server";
+import { slugify } from "@/lib/utils";
+import ReactMarkdown from "react-markdown";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/accordion';
-import { ListChecks, ShieldAlert, FlaskConical, Box, Trees, BookOpen } from 'lucide-react';
-import { ProductCard } from '@/components/product-card';
-import type { Product } from '@/lib/products-server';
+} from "@/components/ui/accordion";
+import {
+  ListChecks,
+  ShieldAlert,
+  FlaskConical,
+  Box,
+  Trees,
+  BookOpen,
+} from "lucide-react";
+import { ProductCard } from "@/components/product-card";
 
-export default async function ProductPage({ params }: { params: { slug: string } }) {
+export default async function ProductPage({
+  params,
+}: {
+  params: { category: string; slug: string };
+}) {
   const product = await getProductBySlug(params.slug);
 
-  if (!product) {
-    notFound();
-  }
+  // 404 handler
+  if (!product) return notFound();
 
   const allProducts = await getProducts();
-  const relatedProducts = allProducts.filter(
-    (p) => p.category === product.category && p.slug !== product.slug
-  ).slice(0, 3);
+
+  const relatedProducts = allProducts
+    .filter(
+      (p) => p.category === product.category && p.slug !== product.slug
+    )
+    .slice(0, 3);
 
   const markdownComponents = {
-      ul: ({node, ...props}: any) => <ul className="list-disc list-inside space-y-2 pl-2" {...props} />,
-      p: ({node, ...props}: any) => <p className="pb-2" {...props} />,
+    ul: ({ node, ...props }: any) => (
+      <ul className="list-disc list-inside space-y-2 pl-2" {...props} />
+    ),
+    p: ({ node, ...props }: any) => <p className="pb-2" {...props} />,
   };
+
+  const fallbackImage = "/placeholder.png"; // Add placeholder image in /public
 
   return (
     <div className="bg-background py-16 md:py-24">
@@ -39,7 +58,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
           {/* Product Image */}
           <div className="aspect-square relative rounded-lg overflow-hidden shadow-lg">
             <Image
-              src={product.image}
+              src={product.image || fallbackImage}
               alt={product.name}
               fill
               priority
@@ -51,72 +70,122 @@ export default async function ProductPage({ params }: { params: { slug: string }
           {/* Product Details */}
           <div>
             <nav className="text-sm mb-4" aria-label="Breadcrumb">
-                <ol className="flex items-center space-x-2 text-foreground/70">
-                    <li><Link href="/products" className="hover:text-primary">Products</Link></li>
-                    <li><span>/</span></li>
-                    <li><Link href={`/products#${slugify(product.category)}`} className="hover:text-primary">{product.category}</Link></li>
-                </ol>
+              <ol className="flex items-center space-x-2 text-foreground/70">
+                <li>
+                  <Link href="/products" className="hover:text-primary">
+                    Products
+                  </Link>
+                </li>
+                <li>/</li>
+                <li>
+                  <Link
+                    href={`/products#${slugify(product.category)}`}
+                    className="hover:text-primary"
+                  >
+                    {product.category}
+                  </Link>
+                </li>
+              </ol>
             </nav>
-            <h1 className="font-headline text-4xl md:text-5xl font-bold">{product.name}</h1>
-            
+
+            <h1 className="font-headline text-4xl md:text-5xl font-bold">
+              {product.name}
+            </h1>
+
             <div className="prose prose-sm md:prose-base mt-4 max-w-none text-foreground/80">
-              <ReactMarkdown components={markdownComponents}>{product.specifications}</ReactMarkdown>
+              <ReactMarkdown components={markdownComponents}>
+                {product.specifications || ""}
+              </ReactMarkdown>
             </div>
 
+            {/* Accordion Sections */}
             <div className="mt-8">
-              <Accordion type="single" collapsible defaultValue="item-1" className="w-full">
+              <Accordion
+                type="single"
+                collapsible
+                defaultValue="item-1"
+                className="w-full"
+              >
                 <AccordionItem value="item-1">
-                  <AccordionTrigger className="text-lg font-headline"><ListChecks className="mr-2 text-primary" />Benefits</AccordionTrigger>
+                  <AccordionTrigger className="text-lg font-headline">
+                    <ListChecks className="mr-2 text-primary" />
+                    Benefits
+                  </AccordionTrigger>
                   <AccordionContent>
-                    <div className="prose prose-sm md:prose-base max-w-none">
-                        <ReactMarkdown components={markdownComponents}>{product.benefits}</ReactMarkdown>
-                    </div>
+                    <ReactMarkdown components={markdownComponents}>
+                      {product.benefits || ""}
+                    </ReactMarkdown>
                   </AccordionContent>
                 </AccordionItem>
+
                 <AccordionItem value="item-2">
-                  <AccordionTrigger className="text-lg font-headline"><FlaskConical className="mr-2 text-primary" />Composition</AccordionTrigger>
+                  <AccordionTrigger className="text-lg font-headline">
+                    <FlaskConical className="mr-2 text-primary" />
+                    Composition
+                  </AccordionTrigger>
                   <AccordionContent>
-                    <div className="prose prose-sm md:prose-base max-w-none">
-                        <ReactMarkdown components={markdownComponents}>{product.composition}</ReactMarkdown>
-                    </div>
+                    <ReactMarkdown components={markdownComponents}>
+                      {product.composition || ""}
+                    </ReactMarkdown>
                   </AccordionContent>
                 </AccordionItem>
+
                 <AccordionItem value="item-3">
-                  <AccordionTrigger className="text-lg font-headline"><BookOpen className="mr-2 text-primary" />Usage Instructions</AccordionTrigger>
+                  <AccordionTrigger className="text-lg font-headline">
+                    <BookOpen className="mr-2 text-primary" />
+                    Usage Instructions
+                  </AccordionTrigger>
                   <AccordionContent>
-                    <div className="prose prose-sm md:prose-base max-w-none">
-                        <ReactMarkdown components={markdownComponents}>{product.usageInstructions}</ReactMarkdown>
-                    </div>
+                    <ReactMarkdown components={markdownComponents}>
+                      {product.usageInstructions || ""}
+                    </ReactMarkdown>
                   </AccordionContent>
                 </AccordionItem>
+
                 <AccordionItem value="item-4">
-                  <AccordionTrigger className="text-lg font-headline"><ShieldAlert className="mr-2 text-primary" />Safety Information</AccordionTrigger>
+                  <AccordionTrigger className="text-lg font-headline">
+                    <ShieldAlert className="mr-2 text-primary" />
+                    Safety Information
+                  </AccordionTrigger>
                   <AccordionContent>
-                    <div className="prose prose-sm md:prose-base max-w-none">
-                        <ReactMarkdown components={markdownComponents}>{product.safetyInformation}</ReactMarkdown>
-                    </div>
+                    <ReactMarkdown components={markdownComponents}>
+                      {product.safetyInformation || ""}
+                    </ReactMarkdown>
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
             </div>
-            
+
+            {/* Packaging Sizes */}
             <div className="mt-8">
-              <h3 className="flex items-center text-lg font-headline mb-3"><Box className="mr-2 text-primary" />Packaging Sizes</h3>
+              <h3 className="flex items-center text-lg font-headline mb-3">
+                <Box className="mr-2 text-primary" />
+                Packaging Sizes
+              </h3>
               <p>{product.packagingSizes}</p>
             </div>
 
+            {/* Suitable Crops */}
             <div className="mt-8">
-              <h3 className="flex items-center text-lg font-headline mb-3"><Trees className="mr-2 text-primary" />Suitable For</h3>
-                <p>{product.suitableCrops}</p>
+              <h3 className="flex items-center text-lg font-headline mb-3">
+                <Trees className="mr-2 text-primary" />
+                Suitable Crops
+              </h3>
+              <p>{product.suitableCrops}</p>
             </div>
           </div>
         </div>
 
+        {/* Related Products */}
         {relatedProducts.length > 0 && (
           <div className="mt-24">
-            <h2 className="text-3xl font-headline font-bold text-center mb-12">Related Products</h2>
+            <h2 className="text-3xl font-headline font-bold text-center mb-12">
+              Related Products
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {relatedProducts.map(p => <ProductCard key={p.slug} product={p} />)}
+              {relatedProducts.map((p) => (
+                <ProductCard key={p.slug} product={p} />
+              ))}
             </div>
           </div>
         )}
@@ -125,9 +194,9 @@ export default async function ProductPage({ params }: { params: { slug: string }
   );
 }
 
-
 export async function generateStaticParams() {
   const products = await getProducts();
+
   return products.map((product) => ({
     category: slugify(product.category),
     slug: product.slug,

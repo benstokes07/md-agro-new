@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Super Grow Fertilizer",
+    "slug": "super-grow",
+    "category": "NPK Fertilizers",
+    "image": "/uploads/super-grow.jpg",
+    "tagline": "Boost your crop results",
+    "specifications": "NPK 20-20-20",
+    "benefits": "Rapid growth, strong roots",
+    "composition": "Nitrogen, Phosphorus, Potassium",
+    "usageInstructions": "Mix 2g per litre of water",
+    "safetyInformation": "Wear gloves while handling",
+    "packagingSizes": "500g, 1kg, 5kg",
+    "suitableCrops": "Tomato, Wheat, Paddy"
+  },
+  {
+    "name": "Organic Plus",
+    "slug": "organic-plus",
+    "category": "Organic Fertilizers",
+    "image": "/uploads/organic-plus.jpg",
+    "tagline": "Pure organic power",
+    "specifications": "Premium compost blend",
+    "benefits": "Enhances soil fertility",
+    "composition": "Organic carbon, micronutrients",
+    "usageInstructions": "Apply 1kg per 1 acre",
+    "safetyInformation": "Keep dry and sealed",
+    "packagingSizes": "1kg, 5kg, 25kg",
+    "suitableCrops": "Vegetables, Fruits, Grains"
+  }
+]
