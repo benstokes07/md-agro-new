@@ -3,7 +3,7 @@ backend:
   repo: benstokes07/md-agro-new
   branch: main
   auth_type: pkce
-  oauth_proxy_url: https://decap-oauth-proxy.netlify.app
+  base_url: https://decap-oauth-proxy.netlify.app
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
