@@ -1,4 +1,4 @@
-import Image from 'next/image';
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Goal, Lightbulb, Tractor } from 'lucide-react';
@@ -60,7 +60,7 @@ export default function AboutUsPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <div className="flex flex-col items-center">
               <div className="relative w-40 h-40 rounded-full overflow-hidden shadow-lg mb-4 hover:scale-105 transition-transform">
-                <Image src="https://picsum.photos/seed/founder/200/200" alt="Dipali Mukund Shelake" fill className="object-cover" />
+                <img src="/Dipu-1.png" alt="Dipali Mukund Shelake" className="object-cover w-full h-full" />
               </div>
               <h3 className="text-2xl font-headline font-bold text-primary">Dipali Mukund Shelake</h3>
               <p className="text-lg text-primary font-semibold mb-1">Founder</p>
@@ -70,7 +70,7 @@ export default function AboutUsPage() {
             </div>
             <div className="flex flex-col items-center">
               <div className="relative w-40 h-40 rounded-full overflow-hidden shadow-lg mb-4 hover:scale-105 transition-transform">
-                <Image src="https://picsum.photos/seed/cofounder/200/200" alt="Shelke Mukund Punjaram" fill className="object-cover" />
+                <img src="/owner.jpeg" alt="Shelke Mukund Punjaram" className="object-cover w-full h-full" />
               </div>
               <h3 className="text-xl font-headline font-semibold">Shelke Mukund Punjaram</h3>
               <p className="text-sm text-primary font-medium">Co-Founder & Director</p>
