@@ -15,7 +15,7 @@ export default function AboutUsPage() {
             Pioneering the Future of Agriculture
           </h1>
           <p className="mt-6 max-w-2xl mx-auto text-lg text-foreground/80">
-            At MD Agro Solution, we are dedicated to merging tradition with technology to create a more prosperous and sustainable world for farmers.
+            At MD Agro Solution & Trading Co., we are dedicated to merging tradition with technology to create a more prosperous and sustainable world for farmers.
           </p>
         </div>
 
@@ -80,7 +80,7 @@ export default function AboutUsPage() {
         
         <div className="mt-24 text-center bg-card p-8 rounded-lg shadow-lg">
             <h2 className="text-3xl font-headline font-bold text-primary">Our Commitment to Excellence</h2>
-            <p className="mt-2 max-w-3xl mx-auto text-foreground/80">We are a team of passionate scientists, agronomists, and professionals working hand-in-hand with farmers.</p>
+            <p className="mt-2 max-w-3xl mx-auto text-foreground/80">MD Agro Solution & Trading Co. is a team of passionate scientists, agronomists, and professionals working hand-in-hand with farmers.</p>
         </div>
       </div>
     </div>

@@ -5,7 +5,7 @@ import { Footer } from '@/components/layout/footer';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'MD Agro Solution - Advanced Fertilizer & Soil Health Experts',
+  title: 'MD Agro Solution & Trading Co. - Advanced Fertilizer & Soil Health Experts',
   description: 'Specialized fertilizers and soil conditioners for optimal crop yield and sustainable agriculture.',
 };
 
@@ -24,6 +24,7 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400;700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased bg-background text-foreground">
+        <div id="portal-root"></div>
           <Header />
           <main className="min-h-screen">
             {children}

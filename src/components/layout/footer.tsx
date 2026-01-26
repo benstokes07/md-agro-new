@@ -6,14 +6,24 @@ export function Footer() {
   return (
     <footer className="bg-gradient-to-br from-primary/90 via-primary/80 to-secondary/80 text-primary-foreground pt-16 pb-8">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+
+          {/* Logo + Company Info */}
           <div className="md:col-span-1">
-            <Link href="/" className="inline-block transition-transform duration-300 hover:scale-105">
-              <Logo className="text-primary-foreground h-10 w-10 md:h-12 md:w-12" />
-            </Link>
-            <p className="mt-2 text-xs md:text-sm text-primary-foreground/80 leading-relaxed">
+            <div className="flex items-center gap-3 mb-4">
+              <Link 
+                href="/" 
+                prefetch={true} 
+                className="inline-block transition-transform duration-300 hover:scale-105"
+              >
+                <Logo className="text-primary-foreground h-10 w-10 md:h-12 md:w-12 cursor-pointer" />
+              </Link>
+            </div>
+
+            <p className="text-xs md:text-sm text-primary-foreground/80 leading-relaxed pr-2">
               Cultivating a sustainable future through innovative agricultural solutions.
             </p>
+
             <div className="mt-6 flex space-x-4">
               <Link 
                 href="#" 
@@ -22,6 +32,7 @@ export function Footer() {
               >
                 <Facebook className="h-5 w-5 text-primary-foreground/80" />
               </Link>
+
               <Link 
                 href="#" 
                 aria-label="Twitter"
@@ -29,6 +40,7 @@ export function Footer() {
               >
                 <Twitter className="h-5 w-5 text-primary-foreground/80" />
               </Link>
+
               <Link 
                 href="#" 
                 aria-label="LinkedIn"
@@ -38,116 +50,141 @@ export function Footer() {
               </Link>
             </div>
           </div>
-          
+
+          {/* Quick Links */}
           <div>
-            <h3 className="font-headline font-bold text-lg mb-6 pb-2 relative inline-block after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-accent-foreground after:rounded-full">
+            <h3 className="font-headline font-bold text-lg mb-6 pb-2 relative inline-block 
+            after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 
+            after:bg-accent-foreground after:rounded-full">
               Quick Links
             </h3>
-            <ul className="space-y-3">
+
+            <ul className="space-y-2">
               <li>
                 <Link 
                   href="/" 
-                  className="flex items-center gap-2 text-primary-foreground/80 hover:text-white transition-all duration-300 hover:pl-2"
+                  prefetch={true}
+                  className="flex items-center gap-1 text-primary-foreground/80 hover:text-white transition-all duration-300 hover:pl-1 text-sm"
                 >
-                  <ExternalLink className="h-4 w-4" />
+                  <ExternalLink className="h-3 w-3" />
                   Home
                 </Link>
               </li>
+
               <li>
                 <Link 
                   href="/about" 
-                  className="flex items-center gap-2 text-primary-foreground/80 hover:text-white transition-all duration-300 hover:pl-2"
+                  prefetch={true}
+                  className="flex items-center gap-1 text-primary-foreground/80 hover:text-white transition-all duration-300 hover:pl-1 text-sm"
                 >
-                  <ExternalLink className="h-4 w-4" />
+                  <ExternalLink className="h-3 w-3" />
                   About Us
                 </Link>
               </li>
+
               <li>
                 <Link 
                   href="/products" 
-                  className="flex items-center gap-2 text-primary-foreground/80 hover:text-white transition-all duration-300 hover:pl-2"
+                  prefetch={true}
+                  className="flex items-center gap-1 text-primary-foreground/80 hover:text-white transition-all duration-300 hover:pl-1 text-sm"
                 >
-                  <ExternalLink className="h-4 w-4" />
+                  <ExternalLink className="h-3 w-3" />
                   Products
                 </Link>
               </li>
+
               <li>
                 <Link 
                   href="/contact" 
-                  className="flex items-center gap-2 text-primary-foreground/80 hover:text-white transition-all duration-300 hover:pl-2"
+                  prefetch={true}
+                  className="flex items-center gap-1 text-primary-foreground/80 hover:text-white transition-all duration-300 hover:pl-1 text-sm"
                 >
-                  <ExternalLink className="h-4 w-4" />
+                  <ExternalLink className="h-3 w-3" />
                   Contact
                 </Link>
               </li>
             </ul>
           </div>
-          
+
+          {/* Contact Info */}
           <div>
-            <h3 className="font-headline font-bold text-lg mb-6 pb-2 relative inline-block after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-accent-foreground after:rounded-full">
+            <h3 className="font-headline font-bold text-lg mb-6 pb-2 relative inline-block 
+            after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 
+            after:bg-accent-foreground after:rounded-full">
               Contact Info
             </h3>
-            <ul className="space-y-4 text-sm">
-              <li className="flex items-start gap-3 text-primary-foreground/80">
-                <MapPin className="h-5 w-5 mt-0.5 flex-shrink-0" />
-                <span>Shed B8 & B9 MUMBAI AGRA Highway, Adgaon, Nashik 422003</span>
+
+            <ul className="space-y-3 text-sm">
+              <li className="flex items-start gap-2 text-primary-foreground/80">
+                <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
+                <span className="pr-1">Shed B8 & B9 MUMBAI AGRA Highway, Adgaon, Nashik 422003</span>
               </li>
-              <li className="flex items-center gap-3 text-primary-foreground/80">
-                <Phone className="h-5 w-5 flex-shrink-0" />
+
+              <li className="flex items-center gap-2 text-primary-foreground/80">
+                <Phone className="h-4 w-4 flex-shrink-0" />
                 <span>+91 7249512616</span>
               </li>
-              <li className="flex items-center gap-3 text-primary-foreground/80">
-                <Mail className="h-5 w-5 flex-shrink-0" />
+
+              <li className="flex items-center gap-2 text-primary-foreground/80">
+                <Mail className="h-4 w-4 flex-shrink-0" />
                 <span>mdagrosolution1626@gmail.com</span>
               </li>
             </ul>
           </div>
-          
+
+          {/* Business Hours + Newsletter */}
           <div>
-            <h3 className="font-headline font-bold text-lg mb-6 pb-2 relative inline-block after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-accent-foreground after:rounded-full">
+            <h3 className="font-headline font-bold text-lg mb-6 pb-2 relative inline-block 
+            after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 
+            after:bg-accent-foreground after:rounded-full">
               Business Hours
             </h3>
-            <ul className="space-y-3 text-sm text-primary-foreground/80">
+
+            <ul className="space-y-2 text-sm text-primary-foreground/80">
               <li className="flex justify-between">
-                <span>Monday – Sunday</span>
-                <span className="font-medium">24 Hours Open</span>
+                <span>Mon – Sun</span>
+                <span className="font-medium">24 Hours</span>
               </li>
             </ul>
-            
-            <div className="mt-8">
-              <h4 className="font-bold text-primary-foreground/90 mb-3">Newsletter</h4>
+
+            <div className="mt-6">
+              <h4 className="font-bold text-primary-foreground/90 mb-2 text-sm">Newsletter</h4>
               <div className="flex">
                 <input 
                   type="email" 
                   placeholder="Your email" 
-                  className="px-4 py-2 rounded-l-lg w-full text-gray-800 focus:outline-none focus:ring-2 focus:ring-accent"
+                  className="px-3 py-2 rounded-l-lg w-full text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
                 />
-                <button className="bg-accent text-accent-foreground px-4 py-2 rounded-r-lg hover:bg-accent/90 transition-colors">
+                <button className="bg-accent text-accent-foreground px-3 py-2 rounded-r-lg hover:bg-accent/90 transition-colors text-sm">
                   Join
                 </button>
               </div>
             </div>
           </div>
+
         </div>
-        
-        <div className="mt-12 pt-8 border-t border-primary-foreground/20">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
-            <p className="text-sm text-primary-foreground/60 max-w-[300px]">
-              &copy; {new Date().getFullYear()} MD Agro Solution. All Rights Reserved.
+
+        {/* Bottom Bar */}
+        <div className="mt-8 pt-6 border-t border-primary-foreground/20">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-3 text-center md:text-left">
+            <p className="text-xs text-primary-foreground/60 max-w-[250px]">
+              &copy; {new Date().getFullYear()} MD Agro Solution & Trading Co.
             </p>
-            <div className="flex gap-4 flex-wrap justify-center">
-              <Link href="#" className="text-primary-foreground/60 hover:text-white transition-colors text-sm whitespace-nowrap">
-                Privacy Policy
+
+            <div className="flex gap-3 flex-wrap justify-center">
+              <Link href="#" className="text-primary-foreground/60 hover:text-white transition-colors text-xs whitespace-nowrap">
+                Privacy
               </Link>
-              <Link href="#" className="text-primary-foreground/60 hover:text-white transition-colors text-sm whitespace-nowrap">
-                Terms of Service
+              <Link href="#" className="text-primary-foreground/60 hover:text-white transition-colors text-xs whitespace-nowrap">
+                Terms
               </Link>
-              <Link href="#" className="text-primary-foreground/60 hover:text-white transition-colors text-sm whitespace-nowrap">
+              <Link href="#" className="text-primary-foreground/60 hover:text-white transition-colors text-xs whitespace-nowrap">
                 Sitemap
               </Link>
             </div>
           </div>
         </div>
+
       </div>
     </footer>
   );

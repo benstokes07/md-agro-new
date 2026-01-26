@@ -38,7 +38,7 @@ export default async function Home() {
             Rooted in trust, Growing your success
           </h1>
           <p className="mt-4 text-lg md:text-xl max-w-2xl mx-auto animate-fade-in delay-200">
-            MD Agro Solution provides advanced fertilizers and soil
+            MD Agro Solution & Trading Co. provides advanced fertilizers and soil
             conditioners to empower farmers and cultivate a sustainable future.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4 animate-fade-in delay-300">

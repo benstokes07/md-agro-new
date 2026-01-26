@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, ChevronDown } from 'lucide-react';
-import { useState } from 'react';
+import { useState, memo } from 'react';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -33,10 +33,11 @@ export function Header() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const NavLink = ({ href, label }: { href: string, label: string }) => {
+  const NavLink = memo(({ href, label }: { href: string, label: string }) => {
     return (
       <Link
         href={href}
+        prefetch={true}
         className={cn(
           "text-lg md:text-sm font-medium transition-all duration-300 hover:text-primary hover:scale-105",
           pathname === href ? 'text-primary font-semibold' : 'text-foreground/70'
@@ -46,9 +47,11 @@ export function Header() {
         {label}
       </Link>
     );
-  };
+  });
   
-  const ProductDropdown = () => (
+  NavLink.displayName = 'NavLink';
+  
+  const ProductDropdown = memo(() => (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button className="flex items-center gap-1 text-lg md:text-sm font-medium transition-all duration-300 hover:text-primary hover:scale-105 text-foreground/70">
@@ -66,13 +69,15 @@ export function Header() {
         ))}
       </DropdownMenuContent>
     </DropdownMenu>
-  );
+  ));
+  
+  ProductDropdown.displayName = 'ProductDropdown';
   
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/90 backdrop-blur-md transition-all duration-300">
       <div className="container mx-auto flex h-16 md:h-18 items-center justify-between px-4">
-        <Link href="/" className="transition-transform duration-300 hover:scale-105 max-w-[220px]">
-          <Logo />
+        <Link href="/" prefetch={true}>
+          <Logo className="transition-transform duration-300 hover:scale-105 max-w-[220px] cursor-pointer" />
         </Link>
         
         {/* Desktop Navigation */}
@@ -94,12 +99,14 @@ export function Header() {
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-background/95 backdrop-blur">
               <div className="p-4">
-                <Link href="/" className="transition-transform duration-300 hover:scale-105 inline-block mb-8 max-w-[200px]">
-                  <Logo />
+                <Link href="/" prefetch={true}>
+                  <Logo className="transition-transform duration-300 hover:scale-105 inline-block mb-8 max-w-[200px] cursor-pointer" />
                 </Link>
                 <nav className="flex flex-col gap-6">
                   {navLinks.filter(link => link.label !== 'Products').map((link) => (
-                    <NavLink key={link.href} {...link} />
+                    <div key={link.href}>
+                      <NavLink {...link} />
+                    </div>
                   ))}
                   <div className="pt-4 border-t border-border">
                     <h3 className="font-bold text-foreground mb-3">Product Categories</h3>
@@ -108,6 +115,7 @@ export function Header() {
                         <Link 
                           key={category.name}
                           href={category.href}
+                          prefetch={true}
                           className="text-foreground/70 hover:text-primary transition-colors"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >

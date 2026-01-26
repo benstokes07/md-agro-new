@@ -8,6 +8,19 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  // Performance optimizations
+  experimental: {
+    optimizeCss: true,
+    scrollRestoration: true,
+  },
+  // Enable prefetching for faster navigation
+  reactStrictMode: false, // Disable for better performance in production
+  poweredByHeader: false, // Remove unnecessary header
+  // Optimize static assets
+  compress: true,
+  // Cache optimization
+  generateEtags: false,
+  // Prefetch optimization
   images: {
     unoptimized: true, // IMPORTANT FOR EXPORT
     remotePatterns: [

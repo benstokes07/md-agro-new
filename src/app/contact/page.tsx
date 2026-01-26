@@ -1,9 +1,6 @@
 import Image from 'next/image';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, Star } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export default function ContactPage() {
@@ -15,7 +12,7 @@ export default function ContactPage() {
         <div className="text-center">
             <h1 className="text-4xl font-headline font-bold tracking-tight sm:text-5xl">Get in Touch</h1>
             <p className="mt-4 max-w-2xl mx-auto text-lg text-foreground/80">
-                We're here to help. Whether you have a question about our products, need support, or want to partner with us, please reach out.
+                MD Agro Solution & Trading Co. is here to help. Whether you have a question about our products, need support, or want to partner with us, please reach out.
             </p>
         </div>
 
@@ -54,34 +51,47 @@ export default function ContactPage() {
                         </div>
                     </CardContent>
                 </Card>
+                
+                {/* Business Hours Card */}
+                <Card className="animate-fade-in">
+                    <CardContent className="pt-6 flex items-start gap-4">
+                        <div className="flex-shrink-0 w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center">
+                            <Clock className="w-6 h-6" />
+                        </div>
+                        <div>
+                            <h3 className="text-lg font-headline font-semibold">Business Hours</h3>
+                            <p className="text-foreground/80">Available 24/7 for your convenience</p>
+                        </div>
+                    </CardContent>
+                </Card>
             </div>
             
             <div className="lg:col-span-2">
                 <Card className="p-6 md:p-8 animate-fade-in">
-                    <form name="contact" method="POST" data-netlify="true">
-                        <input type="hidden" name="form-name" value="contact" />
-                        <div className="space-y-6">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div className="space-y-2">
-                                    <label htmlFor="name" className="text-sm font-medium">Full Name</label>
-                                    <Input id="name" name="name" type="text" placeholder="Your Name" required />
-                                </div>
-                                <div className="space-y-2">
-                                    <label htmlFor="email" className="text-sm font-medium">Email Address</label>
-                                    <Input id="email" name="email" type="email" placeholder="you@example.com" required />
-                                </div>
-                            </div>
-                            <div className="space-y-2">
-                                <label htmlFor="subject" className="text-sm font-medium">Subject</label>
-                                <Input id="subject" name="subject" type="text" placeholder="How can we help?" required />
-                            </div>
-                            <div className="space-y-2">
-                                <label htmlFor="message" className="text-sm font-medium">Message</label>
-                                <Textarea id="message" name="message" placeholder="Your message..." rows={6} required />
-                            </div>
-                            <Button type="submit" className="w-full md:w-auto hover:scale-105 transition-transform" size="lg">Send Message</Button>
+                    <div className="text-center">
+                        <h2 className="text-2xl font-bold mb-4">Company License</h2>
+                        <div className="bg-gray-100 p-6 rounded-lg mb-6">
+                            <p className="text-xl font-semibold text-gray-800">License No:- LCFWD2025120473</p>
                         </div>
-                    </form>
+                        
+                        <div className="mt-8">
+                            <h3 className="text-xl font-bold mb-4">Customer Satisfaction</h3>
+                            <div className="flex justify-center space-x-1 mb-4">
+                                {[...Array(5)].map((_, i) => (
+                                    <Star key={i} className="w-6 h-6 text-yellow-400 fill-current" />
+                                ))}
+                            </div>
+                            <p className="text-foreground/70">
+                                With over 500+ satisfied customers, we pride ourselves on delivering exceptional service and quality agricultural solutions.
+                            </p>
+                        </div>
+                        
+                        <div className="mt-8">
+                            <p className="text-lg font-medium text-primary">
+                                For immediate assistance, please contact us via email or phone during business hours.
+                            </p>
+                        </div>
+                    </div>
                 </Card>
             </div>
         </div>
