@@ -109,21 +109,6 @@ export default async function Home() {
             </AnimatedSection>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 text-center">
-              <AnimatedSection animationClass="animate-slide-in-left" delay={200}>
-                <div className="flex flex-col items-center hover-lift transition-all duration-300 p-4 rounded-lg hover:bg-accent/10 min-h-[200px]">
-                  <div className="flex items-center justify-center h-16 w-16 rounded-full bg-primary text-primary-foreground mb-4 animate-float">
-                    <Logo className="h-10 w-10" />
-                  </div>
-                  <h3 className="text-xl font-headline font-bold mb-2 text-center">
-                    Premium Ingredients
-                  </h3>
-                  <p className="text-sm md:text-base text-center">
-                    Our fertilizers undergo rigorous testing to ensure they meet the
-                    highest standards of quality and nutrient purity.
-                  </p>
-                </div>
-              </AnimatedSection>
-
               <AnimatedSection animationClass="animate-slide-up" delay={300}>
                 <div className="flex flex-col items-center hover-lift transition-all duration-300 p-4 rounded-lg hover:bg-accent/10 min-h-[200px]">
                   <div className="flex items-center justify-center h-16 w-16 rounded-full bg-primary text-primary-foreground mb-4 animate-float">

@@ -49,7 +49,7 @@ export default async function ProductPage({
     p: ({ node, ...props }: any) => <p className="pb-2" {...props} />,
   };
 
-  const fallbackImage = "/placeholder.png"; // Add placeholder image in /public
+  const fallbackImage = "/logo.png"; // Use existing logo as fallback
 
   return (
     <div className="bg-background py-16 md:py-24">
@@ -64,6 +64,10 @@ export default async function ProductPage({
               priority
               className="object-cover"
               sizes="(max-width: 1023px) 100vw, 50vw"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.src = fallbackImage;
+              }}
             />
           </div>
 

@@ -14,9 +14,9 @@ export function Footer() {
               <Link 
                 href="/" 
                 prefetch={true} 
-                className="inline-block transition-transform duration-300 hover:scale-105"
+                className="inline-block transition-transform duration-300 hover:scale-105 min-w-[120px]"
               >
-                <Logo className="text-primary-foreground h-10 w-10 md:h-12 md:w-12 cursor-pointer" />
+                <Logo className="text-primary-foreground cursor-pointer" />
               </Link>
             </div>
 

@@ -38,6 +38,16 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "picsum.photos",
         pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.airtable.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "*.amazonaws.com",
+        pathname: "/**",
       }
     ]
   }

@@ -77,7 +77,7 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/90 backdrop-blur-md transition-all duration-300">
       <div className="container mx-auto flex h-16 md:h-18 items-center justify-between px-4">
         <Link href="/" prefetch={true}>
-          <Logo className="transition-transform duration-300 hover:scale-105 max-w-[220px] cursor-pointer" />
+          <Logo className="transition-transform duration-300 hover:scale-105 cursor-pointer min-w-[120px]" />
         </Link>
         
         {/* Desktop Navigation */}
@@ -100,7 +100,7 @@ export function Header() {
             <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-background/95 backdrop-blur">
               <div className="p-4">
                 <Link href="/" prefetch={true}>
-                  <Logo className="transition-transform duration-300 hover:scale-105 inline-block mb-8 max-w-[200px] cursor-pointer" />
+                  <Logo className="transition-transform duration-300 hover:scale-105 inline-block mb-8 cursor-pointer min-w-[120px]" />
                 </Link>
                 <nav className="flex flex-col gap-6">
                   {navLinks.filter(link => link.label !== 'Products').map((link) => (
