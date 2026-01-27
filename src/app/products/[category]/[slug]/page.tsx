@@ -64,10 +64,6 @@ export default async function ProductPage({
               priority
               className="object-cover"
               sizes="(max-width: 1023px) 100vw, 50vw"
-              onError={(e) => {
-                const target = e.target as HTMLImageElement;
-                target.src = fallbackImage;
-              }}
             />
           </div>
 
