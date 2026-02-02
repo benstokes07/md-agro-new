@@ -25,13 +25,27 @@ export async function getProducts(): Promise<Product[]> {
   try {
     const tableName = process.env.AIRTABLE_TABLE_NAME!;
     const records = await base(tableName).select({}).all();
+    
+    console.log(`Fetched ${records.length} products from Airtable`);
 
     return records.map((record) => {
       const imageAttachment = record.get("Image");
-      const imageUrl =
-        Array.isArray(imageAttachment) && imageAttachment.length > 0
-          ? imageAttachment[0].url
-          : "";
+      let imageUrl = "";
+      
+      // Handle Airtable image attachment properly
+      if (Array.isArray(imageAttachment) && imageAttachment.length > 0) {
+        const attachment = imageAttachment[0];
+        if (typeof attachment === "object" && attachment !== null && "url" in attachment) {
+          imageUrl = attachment.url as string;
+        }
+      }
+      
+      // Debug logging
+      if (imageUrl) {
+        console.log(`Product ${record.get("Name")}: Image URL - ${imageUrl}`);
+      } else {
+        console.log(`Product ${record.get("Name")}: No image found, using fallback`);
+      }
 
       return {
         id: record.id,

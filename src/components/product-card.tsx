@@ -27,7 +27,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
       <div className="relative overflow-hidden rounded-t-lg">
         <Link href={productUrl} className="block aspect-square relative">
           <Image
-            src={product.image || "/placeholder.png"}
+            src={product.image || "/logo.png"}
             alt={product.name}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-110"
