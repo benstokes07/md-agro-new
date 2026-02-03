@@ -25,15 +25,15 @@ export function ProductCard({ product, className }: ProductCardProps) {
   return (
     <Card className={`group flex flex-col h-full overflow-hidden transition-all duration-500 hover:shadow-xl hover:-translate-y-2 ${className || ''}`}>
       <div className="relative overflow-hidden rounded-t-lg">
-        <Link href={productUrl} className="block aspect-square relative">
+        <Link href={productUrl} className="block aspect-[4/5] relative">
           <Image
             src={product.image || "/logo.png"}
             alt={product.name}
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-110"
+            className="object-contain transition-transform duration-500 group-hover:scale-110"  // Changed from object-cover to object-contain
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
         </Link>
         <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <Badge variant="secondary" className="bg-primary/90 text-primary-foreground">
