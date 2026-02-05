@@ -1,6 +1,6 @@
 import { getProductBySlug, normalize, getProducts } from "@/lib/products-server";
 
-// Add generateStaticParams for production builds
+// Add generateStaticParams for static export
 export async function generateStaticParams() {
   try {
     const products = await getProducts();
@@ -32,146 +32,20 @@ export default async function ProductPage({
 
   const slug = normalize(decodeURIComponent(rawSlug));
 
-  const product = await getProductBySlug("", slug); // Empty category since we're removing category from URL
+  const products = await getProducts(); // Get all products
+  const normalizedSlug = normalize(slug);
+  
+  // Find product by matching normalized slug or name
+  const product = products.find(p => 
+    normalize(p.slug || p.name) === normalizedSlug
+  );
 
   if (!product) {
-    // If not found with empty category, try to find by slug only
-    const products = await getProducts();
-    const normalizedSlug = normalize(slug);
-    
-    const foundProduct = products.find(p => 
-      normalize(p.slug || p.name) === normalizedSlug
-    );
-
-    if (!foundProduct) {
-      return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50">
-          <div className="text-center">
-            <h1 className="text-2xl font-bold text-gray-900 mb-4">Product Not Found</h1>
-          </div>
-        </div>
-      );
-    }
-    
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Header Section */}
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              {foundProduct.name}
-            </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              {foundProduct.tagline || "Product information coming soon."}
-            </p>
-          </div>
-
-          {/* Image Section */}
-          <div className="mb-12">
-            {foundProduct.image ? (
-              <div className="relative overflow-hidden rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300">
-                <img 
-                  src={foundProduct.image} 
-                  alt={foundProduct.name}
-                  className="w-full h-auto object-contain max-h-[600px] transition-transform duration-500 hover:scale-105"
-                />
-              </div>
-            ) : (
-              <div className="bg-gray-200 border-2 border-dashed border-gray-300 rounded-2xl h-96 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="text-6xl mb-4">📦</div>
-                  <p className="text-gray-500 text-lg">No Image Available</p>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Product Details Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Left Column */}
-            <div className="space-y-8">
-              <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
-                  <span className="mr-3">📋</span>
-                  Specifications
-                </h2>
-                <p className="text-gray-700 leading-relaxed">
-                  {foundProduct.specifications || "Product specifications will be updated soon."}
-                </p>
-              </div>
-
-              <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
-                  <span className="mr-3">🧪</span>
-                  Composition
-                </h2>
-                <p className="text-gray-700 leading-relaxed">
-                  {foundProduct.composition || "Product composition details will be added shortly."}
-                </p>
-              </div>
-
-              <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
-                  <span className="mr-3">✨</span>
-                  Benefits
-                </h2>
-                <p className="text-gray-700 leading-relaxed">
-                  {foundProduct.benefits || "Product benefits information coming soon."}
-                </p>
-              </div>
-            </div>
-
-            {/* Right Column */}
-            <div className="space-y-8">
-              <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
-                  <span className="mr-3">📝</span>
-                  Usage Instructions
-                </h2>
-                <p className="text-gray-700 leading-relaxed">
-                  {foundProduct.usage || "Usage instructions will be updated soon."}
-                </p>
-              </div>
-
-              <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
-                  <span className="mr-3">⚠️</span>
-                  Safety Information
-                </h2>
-                <p className="text-gray-700 leading-relaxed">
-                  {foundProduct.safety || "Follow standard safety practices while using this product."}
-                </p>
-              </div>
-
-              <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
-                  <span className="mr-3">📦</span>
-                  Packaging & Crops
-                </h2>
-                <div className="space-y-4">
-                  <div>
-                    <h3 className="font-semibold text-gray-800 mb-2">Packaging Sizes:</h3>
-                    <p className="text-gray-700">
-                      {foundProduct.packaging || "Packaging information will be added soon."}
-                    </p>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-800 mb-2">Suitable Crops:</h3>
-                    <p className="text-gray-700">
-                      {foundProduct.crops || "Crop suitability information coming soon."}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Category Badge */}
-          <div className="mt-12 text-center">
-            <span className="inline-block bg-blue-100 text-blue-800 text-sm font-medium px-4 py-2 rounded-full">
-              Category: {foundProduct.category}
-            </span>
-          </div>
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">Product Not Found</h1>
+          <p className="text-gray-600">The product you're looking for doesn't exist.</p>
         </div>
       </div>
     );

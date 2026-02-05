@@ -15,21 +15,10 @@ export function ProductList({ products: initialProducts }: ProductListProps) {
   const [loading, setLoading] = useState(false);
 
   const refreshProducts = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch("/api/products");
-
-      if (!res.ok) {
-        throw new Error("API error");
-      }
-
-      const data: Product[] = await res.json();
-      setProducts(data);
-    } catch (error) {
-      console.error("Error loading products", error);
-    } finally {
-      setLoading(false);
-    }
+    // Since we're using static export, we can't call API routes
+    // In a static site, the products are already embedded in the page
+    // So this refresh function is disabled for static export
+    console.log("Refresh disabled in static export mode");
   };
 
   return (
@@ -39,11 +28,11 @@ export function ProductList({ products: initialProducts }: ProductListProps) {
           onClick={refreshProducts}
           variant="outline"
           size="sm"
-          disabled={loading}
-          className="gap-2"
+          disabled={true} /* Disabled for static export */
+          className="gap-2 opacity-50 cursor-not-allowed"
         >
-          <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
-          {loading ? "Refreshing..." : "Refresh Products"}
+          <RefreshCw className={`h-4 w-4`} />
+          Static Content
         </Button>
       </div>
 
