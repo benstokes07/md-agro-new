@@ -97,7 +97,7 @@ export function Header() {
                     <h3 className="font-bold text-foreground mb-3">Product Categories</h3>
                     <div className="flex flex-col gap-3">
                       <Link 
-                        href="/products"
+                        href="/products#npk-fertilizers"
                         prefetch={true}
                         className="text-foreground/70 hover:text-primary transition-colors"
                         onClick={() => handleNavigation(() => {})}
@@ -105,7 +105,7 @@ export function Header() {
                         NPK Fertilizers
                       </Link>
                       <Link 
-                        href="/products"
+                        href="/products#micronutrients"
                         prefetch={true}
                         className="text-foreground/70 hover:text-primary transition-colors"
                         onClick={() => handleNavigation(() => {})}
@@ -113,7 +113,7 @@ export function Header() {
                         Micronutrients
                       </Link>
                       <Link 
-                        href="/products"
+                        href="/products#biostimulants"
                         prefetch={true}
                         className="text-foreground/70 hover:text-primary transition-colors"
                         onClick={() => handleNavigation(() => {})}

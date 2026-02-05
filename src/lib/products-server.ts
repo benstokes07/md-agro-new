@@ -34,6 +34,31 @@ function getField(fields: any, names: string[]) {
   return "";
 }
 
+/* 🔒 CONVERT IMAGE URL TO LOCAL PATH */
+function convertToLocalImagePath(imageUrl: string | undefined): string {
+  if (!imageUrl) return "";
+  
+  try {
+    // Extract filename from URL
+    const urlObj = new URL(imageUrl);
+    const pathname = urlObj.pathname;
+    const filename = pathname.split('/').pop(); // Get the last part after the last '/'
+    
+    if (filename) {
+      // Return local path format: /products/filename.png
+      return `/products/${filename}`;
+    }
+  } catch (error) {
+    // If URL parsing fails, try to extract filename with regex
+    const match = imageUrl.match(/([^\/?#]+)(\?|#|$)/);
+    if (match && match[1]) {
+      return `/products/${match[1]}`;
+    }
+  }
+  
+  return ""; // Return empty string if unable to extract filename
+}
+
 /* 🔒 AIRTABLE INIT */
 function getBase() {
   if (!process.env.AIRTABLE_API_KEY)
@@ -57,10 +82,18 @@ export async function getProducts(): Promise<Product[]> {
     const f = record.fields as any;
 
     const imageField = f.Image;
-    const image =
-      Array.isArray(imageField) && imageField[0]?.url
-        ? imageField[0].url
-        : "";
+    let image = "";
+
+    // CASE 1: If Airtable field was Attachment
+    if (Array.isArray(imageField) && imageField[0]?.url) {
+      image = convertToLocalImagePath(imageField[0].url);
+    }
+
+    // CASE 2: If Airtable field is single line text (local paths)
+    if (typeof imageField === "string") {
+      // Already correct path like: /products/md-npk-191919.png
+      image = imageField.trim();
+    }
 
     const name = getField(f, ["Name", "NAME"]);
 

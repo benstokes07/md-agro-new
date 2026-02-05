@@ -7,9 +7,9 @@ import Link from "next/link";
 import { memo } from "react";
 
 const productCategories = [
-  { name: 'NPK Fertilizers', href: '/products' },
-  { name: 'Micronutrients', href: '/products' },
-  { name: 'Biostimulants', href: '/products' },
+  { name: 'NPK Fertilizers', href: '/products#npk-fertilizers', id: 'npk-fertilizers' },
+  { name: 'Micronutrients', href: '/products#micronutrients', id: 'micronutrients' },
+  { name: 'Biostimulants', href: '/products#biostimulants', id: 'biostimulants' },
 ];
 
 export const ProductDropdown = memo(() => {
