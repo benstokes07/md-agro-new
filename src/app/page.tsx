@@ -1,19 +1,18 @@
-import Link from "next/link";
+// app/page.tsx
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowRight, Users, TestTubeDiagonal, ChevronDown } from "lucide-react";
-import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/product-card";
+import { ProductList } from "@/components/product-list";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { getProducts } from "@/lib/products-server";
 import { AnimatedSection } from "@/components/animated-section";
+import { getProducts, type Product } from "@/lib/products-server";
 
-export default async function Home() {
+export default async function HomePage() {
+  const products = await getProducts();
+  const featuredProducts = products.slice(0, 3);
   const heroImage = PlaceHolderImages.find((img) => img.id === "hero-image");
-
-  // ✅ Load products from AIRTABLE
-  const allProducts = await getProducts();
-  const featuredProducts = allProducts.slice(0, 3);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -38,19 +37,19 @@ export default async function Home() {
             <div className="h-2 w-2 bg-green-400 rounded-full animate-pulse"></div>
             <span className="text-sm font-medium">Trusted by over 10,000 farmers</span>
           </div>
-          
+
           <h1 className="font-headline text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-tight">
             <span className="block">Rooted in </span>
             <span className="block text-gradient bg-clip-text text-transparent">Trust</span>
             <span className="block">Growing your </span>
             <span className="block text-gradient bg-clip-text text-transparent">Success</span>
           </h1>
-          
+
           <p className="text-lg md:text-xl lg:text-2xl max-w-3xl mx-auto text-white/90 leading-relaxed animate-fade-in-up stagger-delay-1">
-            MD Agro Solution & Trading Co. provides advanced fertilizers and soil
-            conditioners to empower farmers and cultivate a sustainable future.
+            MD Agro Solution & Trading Co. provides advanced fertilizers and micronutrients
+            to empower farmers and cultivate a sustainable future.
           </p>
-          
+
           <div className="flex flex-col sm:flex-row justify-center gap-6 mt-10 animate-fade-in-up stagger-delay-2">
             <Button asChild size="lg" className="font-bold hover:scale-105 transition-transform hover-lift shadow-2xl bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg">
               <Link href="/products" className="gap-2">
@@ -63,13 +62,13 @@ export default async function Home() {
             </Button>
           </div>
         </div>
-        
+
         <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 animate-bounce">
           <Link href="#products" className="text-white/80 hover:text-white transition-all duration-300 hover:scale-110">
             <ChevronDown className="h-8 w-8" />
           </Link>
         </div>
-        
+
         {/* Floating Elements */}
         <div className="absolute top-20 left-10 animate-float">
           <div className="h-2 w-2 bg-yellow-400 rounded-full opacity-70"></div>
@@ -102,11 +101,11 @@ export default async function Home() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {featuredProducts.map((product, index) => (
+              {featuredProducts.map((product: Product, index: number) => (
                 <AnimatedSection 
-                  key={product.slug}
+                  key={`${product.slug}-${index}`}
                   animationClass="animate-slide-up"
-                  delay={300 + (index * 100)}
+                  delay={300 + index * 100}
                 >
                   <div className="group hover-lift transition-all duration-500 transform hover:-translate-y-2">
                     <ProductCard product={product} />
@@ -152,6 +151,7 @@ export default async function Home() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              {/* 3 Feature Cards */}
               <AnimatedSection animationClass="animate-slide-up" delay={300}>
                 <div className="group flex flex-col items-center p-6 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all duration-500 hover-lift hover:-translate-y-2 text-center">
                   <div className="flex items-center justify-center h-20 w-20 rounded-full bg-gradient-to-br from-primary to-green-600 text-primary-foreground mb-6 relative overflow-hidden">
@@ -183,7 +183,7 @@ export default async function Home() {
                   </p>
                 </div>
               </AnimatedSection>
-              
+
               <AnimatedSection animationClass="animate-slide-in-left" delay={500}>
                 <div className="group flex flex-col items-center p-6 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all duration-500 hover-lift hover:-translate-y-2 text-center">
                   <div className="flex items-center justify-center h-20 w-20 rounded-full bg-gradient-to-br from-primary to-green-600 text-primary-foreground mb-6 relative overflow-hidden">

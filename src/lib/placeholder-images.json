@@ -19,22 +19,16 @@
       "imageHint": "fertilizer bag"
     },
     {
-      "id": "soil-conditioner",
-      "description": "Close-up of rich, dark, healthy soil",
+      "id": "micronutrients",
+      "description": "Close-up of rich, dark, healthy soil with micronutrient supplements",
       "imageUrl": "https://images.unsplash.com/photo-1554162319-4d6b141329c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxoZWFsdGh5JTIwc29pbHxlbnwwfHx8fDE3NjkxOTU2NTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "healthy soil"
+      "imageHint": "micronutrients soil"
     },
     {
-      "id": "yield-booster",
-      "description": "A bottle of plant growth regulator with illustrated plants",
+      "id": "biostimulants",
+      "description": "A bottle of plant biostimulants with illustrated plants",
       "imageUrl": "https://images.unsplash.com/photo-1495908333425-29a1e0918c5f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxwbGFudCUyMGdyb3d0aHxlbnwwfHx8fDE3Njg0Mzk2Nzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "plant growth"
-    },
-    {
-      "id": "root-stimulator",
-      "description": "A product designed to stimulate root growth",
-      "imageUrl": "https://images.unsplash.com/photo-1723101905164-8c8a96214e05?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxwbGFudCUyMHJvb3RzfGVufDB8fHx8MTc2ODQ0MTIwOHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "plant roots"
+      "imageHint": "biostimulants growth"
     },
     {
       "id": "contact-us",

@@ -16,7 +16,7 @@
   {
     "name": "Organic Plus",
     "slug": "organic-plus",
-    "category": "Organic Fertilizers",
+    "category": "Micronutrients",
     "image": "/uploads/organic-plus.jpg",
     "tagline": "Pure organic power",
     "specifications": "Premium compost blend",
@@ -26,5 +26,19 @@
     "safetyInformation": "Keep dry and sealed",
     "packagingSizes": "1kg, 5kg, 25kg",
     "suitableCrops": "Vegetables, Fruits, Grains"
+  },
+  {
+    "name": "BioGrow Stimulant",
+    "slug": "biogrow-stimulant",
+    "category": "Biostimulants",
+    "image": "/uploads/biogrow-stimulant.jpg",
+    "tagline": "Natural plant growth enhancement",
+    "specifications": "Organic biostimulant formula",
+    "benefits": "Promotes root development and stress resistance",
+    "composition": "Seaweed extract, amino acids, vitamins",
+    "usageInstructions": "Dilute 5ml per liter of water",
+    "safetyInformation": "Store in cool, dry place",
+    "packagingSizes": "250ml, 500ml, 1L",
+    "suitableCrops": "All crops, especially fruits and vegetables"
   }
 ]

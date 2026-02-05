@@ -6,7 +6,7 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: 'MD Agro Solution & Trading Co. - Advanced Fertilizer & Soil Health Experts',
-  description: 'Specialized fertilizers and soil conditioners for optimal crop yield and sustainable agriculture.',
+  description: 'Specialized fertilizers and micronutrients for optimal crop yield and sustainable agriculture.',
 };
 
 export default function RootLayout({
@@ -21,16 +21,21 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/logo.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400;700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet" />
+        <link 
+          href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400;700&family=PT+Sans:wght@400;700&display=swap" 
+          rel="stylesheet" 
+        />
+        {/* Preload critical resources */}
+        <link rel="preload" href="/logo.png" as="image" />
       </head>
       <body className="font-body antialiased bg-background text-foreground">
         <div id="portal-root"></div>
-          <Header />
-          <main className="min-h-screen">
-            {children}
-          </main>
-          <Footer />
-          <Toaster />
+        <Header />
+        <main className="min-h-screen">
+          {children}
+        </main>
+        <Footer />
+        <Toaster />
       </body>
     </html>
   );

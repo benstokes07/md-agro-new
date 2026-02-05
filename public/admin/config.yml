@@ -23,8 +23,8 @@ collections:
         widget: "select"
         options:
           - "NPK Fertilizers"
-          - "Organic Fertilizers"
-          - "Soil Conditioners"
+          - "Micronutrients"
+          - "Biostimulants"
           - "Other"
       - { label: "Product Image", name: "image", widget: "image" }
       - { label: "Specifications", name: "specifications", widget: "markdown" }

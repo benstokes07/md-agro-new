@@ -2,19 +2,14 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, ChevronDown } from 'lucide-react';
-import { useState, memo } from 'react';
+import { Menu } from 'lucide-react';
+import { useState, memo, startTransition } from 'react';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Logo } from '@/components/logo';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import { ProductDropdown } from '@/components/product-dropdown';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -23,15 +18,16 @@ const navLinks = [
   { href: '/contact', label: 'Contact' },
 ];
 
-const productCategories = [
-  { name: 'NPK Fertilizers', href: '/products#npk-fertilizers' },
-  { name: 'Soil Conditioners', href: '/products#soil-conditioners' },
-  { name: 'Growth Stimulators', href: '/products#growth-stimulators' },
-];
-
 export function Header() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const handleNavigation = (callback: () => void) => {
+    startTransition(() => {
+      setIsMobileMenuOpen(false);
+      callback();
+    });
+  };
 
   const NavLink = memo(({ href, label }: { href: string, label: string }) => {
     return (
@@ -39,10 +35,10 @@ export function Header() {
         href={href}
         prefetch={true}
         className={cn(
-          "text-lg md:text-sm font-medium transition-all duration-300 hover:text-primary hover:scale-105",
+          "text-lg md:text-sm font-medium transition-all duration-200 hover:text-primary hover:scale-105",
           pathname === href ? 'text-primary font-semibold' : 'text-foreground/70'
         )}
-        onClick={() => setIsMobileMenuOpen(false)}
+        onClick={() => handleNavigation(() => {})}
       >
         {label}
       </Link>
@@ -51,33 +47,16 @@ export function Header() {
   
   NavLink.displayName = 'NavLink';
   
-  const ProductDropdown = memo(() => (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <button className="flex items-center gap-1 text-lg md:text-sm font-medium transition-all duration-300 hover:text-primary hover:scale-105 text-foreground/70">
-          <span>Products</span>
-          <ChevronDown className="h-4 w-4 transition-transform duration-300 group-data-[state=open]:rotate-180" />
-        </button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="center" className="w-56 bg-background border border-border shadow-lg rounded-md p-2">
-        {productCategories.map((category) => (
-          <DropdownMenuItem key={category.name} asChild>
-            <Link href={category.href} className="cursor-pointer">
-              {category.name}
-            </Link>
-          </DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
-  ));
-  
-  ProductDropdown.displayName = 'ProductDropdown';
-  
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/90 backdrop-blur-md transition-all duration-300">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/90 backdrop-blur-md">
       <div className="container mx-auto flex h-16 md:h-18 items-center justify-between px-4">
-        <Link href="/" prefetch={true}>
-          <Logo className="transition-transform duration-300 hover:scale-105 cursor-pointer min-w-[120px]" />
+        <Link 
+          href="/" 
+          prefetch={true} 
+          className="focus:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
+          onClick={() => handleNavigation(() => {})}
+        >
+          <Logo className="transition-transform duration-200 hover:scale-105 cursor-pointer min-w-[120px]" />
         </Link>
         
         {/* Desktop Navigation */}
@@ -92,15 +71,21 @@ export function Header() {
         <div className="md:hidden">
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="rounded-full">
+              <button className="rounded-full p-2 hover:bg-accent transition-colors">
                 <Menu className="h-6 w-6" />
                 <span className="sr-only">Toggle Menu</span>
-              </Button>
+              </button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-background/95 backdrop-blur">
+              <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               <div className="p-4">
-                <Link href="/" prefetch={true}>
-                  <Logo className="transition-transform duration-300 hover:scale-105 inline-block mb-8 cursor-pointer min-w-[120px]" />
+                <Link 
+                  href="/" 
+                  prefetch={true} 
+                  className="focus:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
+                  onClick={() => handleNavigation(() => {})}
+                >
+                  <Logo className="transition-transform duration-200 hover:scale-105 inline-block mb-8 cursor-pointer min-w-[120px]" />
                 </Link>
                 <nav className="flex flex-col gap-6">
                   {navLinks.filter(link => link.label !== 'Products').map((link) => (
@@ -111,17 +96,30 @@ export function Header() {
                   <div className="pt-4 border-t border-border">
                     <h3 className="font-bold text-foreground mb-3">Product Categories</h3>
                     <div className="flex flex-col gap-3">
-                      {productCategories.map((category) => (
-                        <Link 
-                          key={category.name}
-                          href={category.href}
-                          prefetch={true}
-                          className="text-foreground/70 hover:text-primary transition-colors"
-                          onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                          {category.name}
-                        </Link>
-                      ))}
+                      <Link 
+                        href="/products#npk-fertilizers"
+                        prefetch={true}
+                        className="text-foreground/70 hover:text-primary transition-colors"
+                        onClick={() => handleNavigation(() => {})}
+                      >
+                        NPK Fertilizers
+                      </Link>
+                      <Link 
+                        href="/products#micronutrients"
+                        prefetch={true}
+                        className="text-foreground/70 hover:text-primary transition-colors"
+                        onClick={() => handleNavigation(() => {})}
+                      >
+                        Micronutrients
+                      </Link>
+                      <Link 
+                        href="/products#biostimulants"
+                        prefetch={true}
+                        className="text-foreground/70 hover:text-primary transition-colors"
+                        onClick={() => handleNavigation(() => {})}
+                      >
+                        Biostimulants
+                      </Link>
                     </div>
                   </div>
                 </nav>
@@ -133,4 +131,3 @@ export function Header() {
     </header>
   );
 }
-
