@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu } from 'lucide-react';
-import { useState, memo, startTransition } from 'react';
+import { useState, memo } from 'react';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -23,10 +23,10 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleNavigation = (callback: () => void) => {
-    startTransition(() => {
+    // startTransition(() => {
       setIsMobileMenuOpen(false);
       callback();
-    });
+    // });
   };
 
   const NavLink = memo(({ href, label }: { href: string, label: string }) => {
@@ -97,7 +97,7 @@ export function Header() {
                     <h3 className="font-bold text-foreground mb-3">Product Categories</h3>
                     <div className="flex flex-col gap-3">
                       <Link 
-                        href="/products#npk-fertilizers"
+                        href="/products"
                         prefetch={true}
                         className="text-foreground/70 hover:text-primary transition-colors"
                         onClick={() => handleNavigation(() => {})}
@@ -105,7 +105,7 @@ export function Header() {
                         NPK Fertilizers
                       </Link>
                       <Link 
-                        href="/products#micronutrients"
+                        href="/products"
                         prefetch={true}
                         className="text-foreground/70 hover:text-primary transition-colors"
                         onClick={() => handleNavigation(() => {})}
@@ -113,7 +113,7 @@ export function Header() {
                         Micronutrients
                       </Link>
                       <Link 
-                        href="/products#biostimulants"
+                        href="/products"
                         prefetch={true}
                         className="text-foreground/70 hover:text-primary transition-colors"
                         onClick={() => handleNavigation(() => {})}

@@ -7,12 +7,11 @@ interface ProductCardProps {
 
 export function ProductCard({ product }: ProductCardProps) {
   // Use the same normalization approach as the page component
-  const normalizedCategory = normalize(decodeURIComponent(product.category));
   const normalizedSlug = normalize(decodeURIComponent(product.slug || product.name));
   
   return (
     <Link
-      href={`/products/${normalizedCategory}/${normalizedSlug}`}
+      href={`/products/${normalizedSlug}`}
       className="block border rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
     >
       {product.image && <img src={product.image} alt={product.name} className="w-full h-48 object-cover" />}

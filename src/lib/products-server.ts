@@ -98,18 +98,20 @@ export async function getProducts(): Promise<Product[]> {
   });
 }
 
-/* ✅ GET SINGLE PRODUCT */
+/* ✅ GET SINGLE PRODUCT BY SLUG ONLY */
 export async function getProductBySlug(
-  category: string,
+  _category: string, // Unused parameter since we're removing category from URL
   slug: string
 ): Promise<Product | null> {
   const products = await getProducts();
 
-  return (
-    products.find(
-      (p) =>
-        normalize(p.category) === normalize(category) &&
-        normalize(p.slug) === normalize(slug)
-    ) || null
+  const normalizedSlug = normalize(slug);
+  
+  // Look for product by matching normalized slug or name
+  const product = products.find(
+    (p) =>
+      normalize(p.slug || p.name) === normalizedSlug
   );
+
+  return product || null;
 }
