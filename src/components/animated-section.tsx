@@ -38,7 +38,9 @@ export function AnimatedSection({
           observer.unobserve(el);
         }
       },
-      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+      // Large mobile sections (such as the full product catalog) may never
+      // reach a meaningful percentage of their total height inside the viewport.
+      { threshold: 0, rootMargin: '0px 0px -40px 0px' }
     );
 
     observer.observe(el);
