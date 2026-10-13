@@ -1,208 +1,176 @@
-// app/page.tsx
-import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight, Users, TestTubeDiagonal, ChevronDown } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { ProductCard } from "@/components/product-card";
-import { ProductList } from "@/components/product-list";
-import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { AnimatedSection } from "@/components/animated-section";
-import { getProducts, type Product } from "@/lib/products-server";
+import Image from 'next/image';
+import Link from 'next/link';
+import { ArrowDown, ArrowRight, ArrowUpRight, Leaf, Sprout } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { ProductCard } from '@/components/product-card';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { AnimatedSection } from '@/components/animated-section';
+import { getProducts, type Product } from '@/lib/products-server';
+
+function readableCategory(value: string) {
+  return value.replace(/-/g, ' ').replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
 
 export default async function HomePage() {
   const products = await getProducts();
-  const featuredProducts = products.slice(0, 3);
-  const heroImage = PlaceHolderImages.find((img) => img.id === "hero-image");
+  const categories = [...new Set(products.map((product) => product.category).filter(Boolean))];
+  const featuredProducts = products.slice(0, 4);
+  const heroImage = PlaceHolderImages.find((image) => image.id === 'hero-image');
 
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
-      <section className="relative h-screen min-h-[700px] w-full flex items-center justify-center text-center text-white overflow-hidden">
+    <div className="overflow-hidden">
+      <section className="relative isolate min-h-[660px] overflow-hidden bg-[#14271e] text-white sm:min-h-[720px] lg:min-h-[min(780px,calc(100svh-76px))]">
         {heroImage && (
-          <div className="absolute inset-0">
-            <Image
-              src={heroImage.imageUrl}
-              alt={heroImage.description}
-              fill
-              priority
-              className="object-cover scale-110 animate-scale-in"
-              data-ai-hint={heroImage.imageHint}
-            />
-            <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/40 to-black/60" />
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-black/30 to-transparent" />
-          </div>
+          <Image
+            src={heroImage.imageUrl}
+            alt={heroImage.description}
+            fill
+            priority
+            sizes="100vw"
+            className="-z-20 object-cover object-center opacity-70"
+          />
         )}
-        <div className="relative z-10 max-w-6xl mx-auto px-4 text-center space-y-8 animate-fade-in-up">
-          <div className="inline-flex items-center gap-2 bg-primary/20 backdrop-blur-sm rounded-full px-4 py-2 mb-6 animate-slide-in-left">
-            <div className="h-2 w-2 bg-green-400 rounded-full animate-pulse"></div>
-            <span className="text-sm font-medium">Trusted by over 10,000 farmers</span>
+        <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(12,31,22,.94)_0%,rgba(12,31,22,.82)_42%,rgba(12,31,22,.25)_100%),linear-gradient(0deg,rgba(12,31,22,.42),transparent_40%)]" />
+        <div className="absolute inset-0 -z-10 opacity-30 [background-image:radial-gradient(rgba(255,255,255,.28)_0.7px,transparent_0.7px)] [background-size:22px_22px] [mask-image:linear-gradient(90deg,black,transparent_70%)]" />
+
+        <div className="mx-auto flex min-h-[660px] max-w-[1440px] items-center px-5 py-20 sm:min-h-[720px] sm:px-8 lg:min-h-[min(780px,calc(100svh-76px))] lg:px-12">
+          <div className="max-w-[780px]">
+            <AnimatedSection animationClass="animate-fade-in-up">
+              <span className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-white/[.08] px-4 py-2 text-[11px] font-semibold uppercase tracking-[.2em] text-white/85 backdrop-blur-sm">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#d7aa51]" /> MD Agro Solutions &amp; Trading Company
+              </span>
+            </AnimatedSection>
+            <AnimatedSection animationClass="animate-slide-up" delay={100}>
+                <h1 className="max-w-[750px] text-[clamp(3rem,8vw,7rem)] font-medium leading-[.96] tracking-[-.065em] text-white">
+                Made for the work of <span className="font-serif italic font-normal text-[#d9bb78]">growing.</span>
+              </h1>
+            </AnimatedSection>
+            <AnimatedSection animationClass="animate-slide-up" delay={180}>
+              <p className="mt-7 max-w-[540px] text-base leading-7 text-white/75 sm:text-lg sm:leading-8">
+                Explore MD Agro’s range of fertilizers, micronutrients and agricultural products.
+              </p>
+            </AnimatedSection>
+            <AnimatedSection animationClass="animate-slide-up" delay={260}>
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                <Button asChild className="h-12 rounded-full bg-[#d9bb78] px-7 text-sm font-semibold text-[#17271f] hover:bg-[#e6ce98]">
+                  <Link href="/products" className="gap-3">Explore the range <ArrowUpRight className="h-4 w-4" /></Link>
+                </Button>
+                <Button asChild variant="outline" className="h-12 rounded-full border-white/35 bg-white/[.06] px-7 text-sm text-white hover:bg-white/15 hover:text-white">
+                  <Link href="/about">Discover MD Agro</Link>
+                </Button>
+              </div>
+            </AnimatedSection>
           </div>
-
-          <h1 className="font-headline text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-tight">
-            <span className="block">Rooted in </span>
-            <span className="block text-gradient bg-clip-text text-transparent">Trust</span>
-            <span className="block">Growing your </span>
-            <span className="block text-gradient bg-clip-text text-transparent">Success</span>
-          </h1>
-
-          <p className="text-lg md:text-xl lg:text-2xl max-w-3xl mx-auto text-white/90 leading-relaxed animate-fade-in-up stagger-delay-1">
-            MD Agro Solution & Trading Co. provides advanced fertilizers and micronutrients
-            to empower farmers and cultivate a sustainable future.
-          </p>
-
-          <div className="flex flex-col sm:flex-row justify-center gap-6 mt-10 animate-fade-in-up stagger-delay-2">
-            <Button asChild size="lg" className="font-bold hover:scale-105 transition-transform hover-lift shadow-2xl bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg">
-              <Link href="/products" className="gap-2">
-                <ArrowRight className="ml-2" />
-                Explore Fertilizers
-              </Link>
-            </Button>
-            <Button asChild size="lg" variant="secondary" className="font-bold hover:scale-105 transition-transform hover-lift shadow-2xl bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 px-8 py-6 text-lg">
-              <Link href="/contact">Contact Us</Link>
-            </Button>
-          </div>
         </div>
 
-        <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <Link href="#products" className="text-white/80 hover:text-white transition-all duration-300 hover:scale-110">
-            <ChevronDown className="h-8 w-8" />
-          </Link>
-        </div>
+        <Link href="#introduction" aria-label="Scroll to introduction" className="absolute bottom-8 right-5 flex min-h-11 items-center gap-3 text-[10px] uppercase tracking-[.2em] text-white/65 transition-colors hover:text-white sm:right-8 lg:right-12">
+          Scroll to explore <span className="grid h-11 w-11 place-items-center rounded-full border border-white/30"><ArrowDown className="h-4 w-4" /></span>
+        </Link>
+      </section>
 
-        {/* Floating Elements */}
-        <div className="absolute top-20 left-10 animate-float">
-          <div className="h-2 w-2 bg-yellow-400 rounded-full opacity-70"></div>
-        </div>
-        <div className="absolute top-40 right-20 animate-float" style={{ animationDelay: '1s' }}>
-          <div className="h-3 w-3 bg-green-400 rounded-full opacity-50"></div>
-        </div>
-        <div className="absolute bottom-40 left-20 animate-float" style={{ animationDelay: '2s' }}>
-          <div className="h-2 w-2 bg-blue-400 rounded-full opacity-60"></div>
+      <section id="introduction" className="scroll-mt-24 bg-background px-5 py-24 sm:px-8 sm:py-32 lg:px-12">
+        <div className="mx-auto grid max-w-[1280px] gap-10 lg:grid-cols-[.7fr_1.3fr] lg:gap-24">
+          <AnimatedSection animationClass="animate-slide-up">
+            <p className="text-xs font-semibold uppercase tracking-[.2em] text-primary">An agricultural product company</p>
+            <div className="mt-5 h-px w-16 bg-accent" />
+          </AnimatedSection>
+          <AnimatedSection animationClass="animate-slide-up" delay={100}>
+            <h2 className="max-w-[850px] text-3xl font-medium leading-[1.12] tracking-[-.045em] sm:text-5xl lg:text-[3.6rem]">
+              A considered range for the changing needs of <span className="font-serif italic font-normal text-primary">agriculture.</span>
+            </h2>
+            <p className="mt-7 max-w-[650px] text-base leading-7 text-muted-foreground">
+              MD Agro Solution &amp; Trading Co. brings together a catalog of agricultural products across crop nutrition and related categories. Browse the range and find product information in one place.
+            </p>
+            <Link href="/about" className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-primary transition-all hover:gap-3">
+              More about MD Agro <ArrowRight className="h-4 w-4" />
+            </Link>
+          </AnimatedSection>
         </div>
       </section>
 
-      {/* Featured Products Section */}
-      <AnimatedSection animationClass="animate-fade-in" delay={200}>
-        <section id="products" className="py-16 md:py-24 bg-gradient-to-b from-background to-accent/10">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16 relative">
-              <AnimatedSection animationClass="animate-slide-up" delay={100}>
-                <h2 className="text-3xl md:text-4xl font-headline font-bold text-center text-primary mb-4 bg-gradient-to-r from-primary to-green-600 bg-clip-text text-transparent">
-                  Our Key Fertilizers
-                </h2>
-              </AnimatedSection>
-              <AnimatedSection animationClass="animate-fade-in" delay={200}>
-                <p className="text-center max-w-2xl mx-auto text-lg text-muted-foreground mb-2">
-                  Discover our range of high-performance fertilizers designed for
-                  maximum yield and soil health.
-                </p>
-                <div className="w-24 h-1 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto mt-4 rounded-full"></div>
-              </AnimatedSection>
+      <section className="bg-muted px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
+        <div className="mx-auto max-w-[1280px]">
+          <AnimatedSection animationClass="animate-slide-up">
+            <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[.2em] text-primary">Explore by category</p>
+                <h2 className="mt-4 text-3xl font-medium tracking-[-.045em] sm:text-5xl">Product families</h2>
+              </div>
+              <Link href="/products" className="inline-flex items-center gap-2 text-sm font-semibold text-primary transition-all hover:gap-3">
+                View all products <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
+          </AnimatedSection>
+          {categories.length ? (
+            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {categories.map((category, index) => {
+                const count = products.filter((product) => product.category === category).length;
+                const categoryId = category.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                return (
+                  <AnimatedSection key={category} animationClass="animate-slide-up" delay={index * 70}>
+                    <Link href={`/products#category-${categoryId}`} className="group flex min-h-[210px] flex-col justify-between rounded-[1.5rem] bg-[#213c2d] p-7 text-white transition-transform duration-300 hover:-translate-y-1 sm:min-h-[240px] sm:p-9">
+                      <span className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-[#d9bb78]"><Sprout className="h-5 w-5" /></span>
+                      <span className="flex items-end justify-between gap-4">
+                        <span>
+                          <span className="block text-xl font-medium tracking-tight sm:text-2xl">{readableCategory(category)}</span>
+                          <span className="mt-2 block text-xs text-white/60">{count} {count === 1 ? 'product' : 'products'}</span>
+                        </span>
+                        <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white/10 transition-all group-hover:bg-[#d9bb78] group-hover:text-[#17271f]"><ArrowUpRight className="h-4 w-4" /></span>
+                      </span>
+                    </Link>
+                  </AnimatedSection>
+                );
+              })}
+            </div>
+          ) : (
+            <p className="mt-10 rounded-2xl border border-dashed border-border bg-background/60 p-8 text-sm text-muted-foreground">Product categories are currently unavailable.</p>
+          )}
+        </div>
+      </section>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {featuredProducts.map((product: Product, index: number) => (
-                <AnimatedSection 
-                  key={`${product.slug}-${index}`}
-                  animationClass="animate-slide-up"
-                  delay={300 + index * 100}
-                >
-                  <div className="group hover-lift transition-all duration-500 transform hover:-translate-y-2">
-                    <ProductCard product={product} />
-                  </div>
+      <section className="px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
+        <div className="mx-auto max-w-[1280px]">
+          <AnimatedSection animationClass="animate-slide-up">
+            <div className="mb-10 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[.2em] text-primary">From the catalog</p>
+                <h2 className="mt-4 text-3xl font-medium tracking-[-.045em] sm:text-5xl">A closer look at the range</h2>
+              </div>
+              <Link href="/products" className="inline-flex items-center gap-2 text-sm font-semibold text-primary transition-all hover:gap-3">
+                Browse the catalog <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </AnimatedSection>
+          {featuredProducts.length ? (
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {featuredProducts.map((product: Product, index) => (
+                <AnimatedSection key={product.id} animationClass="animate-slide-up" delay={index * 65}>
+                  <ProductCard product={product} />
                 </AnimatedSection>
               ))}
             </div>
+          ) : (
+            <p className="rounded-2xl border border-dashed border-border p-8 text-sm text-muted-foreground">Products are temporarily unavailable.</p>
+          )}
+        </div>
+      </section>
 
-            <div className="text-center mt-16">
-              <AnimatedSection animationClass="animate-fade-in" delay={500}>
-                <Button 
-                  asChild 
-                  size="lg" 
-                  className="bg-gradient-to-r from-primary to-green-600 hover:from-primary/90 hover:to-green-600/90 text-primary-foreground px-8 py-6 text-lg font-bold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
-                >
-                  <Link href="/products" className="gap-2">
-                    View All Products
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Link>
-                </Button>
-              </AnimatedSection>
-            </div>
+      <section className="px-5 pb-20 sm:px-8 sm:pb-28 lg:px-12">
+        <div className="relative mx-auto min-h-[360px] max-w-[1280px] overflow-hidden rounded-[2rem] bg-[#203a2b] sm:min-h-[440px]">
+          {heroImage && <Image src={heroImage.imageUrl} alt={heroImage.description} fill sizes="(max-width: 1280px) 100vw, 1280px" className="object-cover opacity-40" />}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#172c20] via-[#172c20]/80 to-transparent" />
+          <div className="relative flex min-h-[360px] max-w-2xl flex-col justify-center p-8 text-white sm:min-h-[440px] sm:p-14 lg:p-16">
+            <AnimatedSection animationClass="animate-slide-up">
+              <span className="flex h-11 w-11 items-center justify-center rounded-full border border-white/25 text-[#d9bb78]"><Leaf className="h-5 w-5" /></span>
+              <p className="mt-7 text-xs font-semibold uppercase tracking-[.2em] text-white/65">Product information, in one place</p>
+              <h2 className="mt-4 text-3xl font-medium leading-tight tracking-[-.04em] sm:text-5xl">Explore the products behind the name.</h2>
+              <Button asChild className="mt-8 h-12 w-fit rounded-full bg-[#d9bb78] px-7 text-[#17271f] hover:bg-[#e6ce98]">
+                <Link href="/products" className="gap-2">Open product catalog <ArrowUpRight className="h-4 w-4" /></Link>
+              </Button>
+            </AnimatedSection>
           </div>
-        </section>
-      </AnimatedSection>
-
-      {/* Why Choose Us Section */}
-      <AnimatedSection animationClass="animate-fade-in" delay={300}>
-        <section className="py-16 md:py-24 bg-gradient-to-b from-accent/10 to-background">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16 relative">
-              <AnimatedSection animationClass="animate-slide-up" delay={100}>
-                <h2 className="text-3xl md:text-4xl font-headline font-bold text-center text-primary mb-4 bg-gradient-to-r from-primary to-green-600 bg-clip-text text-transparent">
-                  Why Partner with MD Agro Solution?
-                </h2>
-              </AnimatedSection>
-              <AnimatedSection animationClass="animate-fade-in" delay={200}>
-                <p className="text-center max-w-2xl mx-auto text-lg text-muted-foreground mb-2">
-                  We're committed to empowering farmers with innovative solutions
-                </p>
-                <div className="w-24 h-1 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto mt-4 rounded-full"></div>
-              </AnimatedSection>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              {/* 3 Feature Cards */}
-              <AnimatedSection animationClass="animate-slide-up" delay={300}>
-                <div className="group flex flex-col items-center p-6 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all duration-500 hover-lift hover:-translate-y-2 text-center">
-                  <div className="flex items-center justify-center h-20 w-20 rounded-full bg-gradient-to-br from-primary to-green-600 text-primary-foreground mb-6 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
-                    <TestTubeDiagonal className="h-10 w-10 relative z-10" />
-                  </div>
-                  <h3 className="text-xl font-headline font-bold mb-3 text-foreground group-hover:text-primary transition-colors">
-                    Science-Backed Formulas
-                  </h3>
-                  <p className="text-sm md:text-base text-muted-foreground group-hover:text-foreground transition-colors">
-                    We leverage modern soil science to create nutrient solutions
-                    that solve farming challenges.
-                  </p>
-                </div>
-              </AnimatedSection>
-
-              <AnimatedSection animationClass="animate-slide-in-right" delay={400}>
-                <div className="group flex flex-col items-center p-6 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all duration-500 hover-lift hover:-translate-y-2 text-center">
-                  <div className="flex items-center justify-center h-20 w-20 rounded-full bg-gradient-to-br from-primary to-green-600 text-primary-foreground mb-6 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
-                    <Users className="h-10 w-10 relative z-10" />
-                  </div>
-                  <h3 className="text-xl font-headline font-bold mb-3 text-foreground group-hover:text-primary transition-colors">
-                    Farmer-First Approach
-                  </h3>
-                  <p className="text-sm md:text-base text-muted-foreground group-hover:text-foreground transition-colors">
-                    Your success is our mission — we provide insights, guidance, and
-                    support for boosting yields.
-                  </p>
-                </div>
-              </AnimatedSection>
-
-              <AnimatedSection animationClass="animate-slide-in-left" delay={500}>
-                <div className="group flex flex-col items-center p-6 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all duration-500 hover-lift hover:-translate-y-2 text-center">
-                  <div className="flex items-center justify-center h-20 w-20 rounded-full bg-gradient-to-br from-primary to-green-600 text-primary-foreground mb-6 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
-                    <ArrowRight className="h-10 w-10 rotate-45 relative z-10" />
-                  </div>
-                  <h3 className="text-xl font-headline font-bold mb-3 text-foreground group-hover:text-primary transition-colors">
-                    Proven Results
-                  </h3>
-                  <p className="text-sm md:text-base text-muted-foreground group-hover:text-foreground transition-colors">
-                    Our fertilizers have helped thousands of farmers achieve
-                    higher yields and better profits.
-                  </p>
-                </div>
-              </AnimatedSection>
-            </div>
-          </div>
-        </section>
-      </AnimatedSection>
+        </div>
+      </section>
     </div>
   );
 }

@@ -1,190 +1,49 @@
 import Link from 'next/link';
-import { Facebook, Twitter, Linkedin, Mail, Phone, MapPin, ExternalLink } from 'lucide-react';
+import { ArrowUpRight, Mail, MapPin, Phone } from 'lucide-react';
 import { Logo } from '@/components/logo';
+
+const navigation = [
+  { href: '/', label: 'Home' },
+  { href: '/about', label: 'About' },
+  { href: '/products', label: 'Products' },
+  { href: '/contact', label: 'Contact' },
+];
 
 export function Footer() {
   return (
-    <footer className="bg-gradient-to-br from-primary/90 via-primary/80 to-secondary/80 text-primary-foreground pt-16 pb-8">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-
-          {/* Logo + Company Info */}
-          <div className="md:col-span-1">
-            <div className="flex items-center gap-3 mb-4">
-              <Link 
-                href="/" 
-                prefetch={true} 
-                className="inline-block transition-transform duration-300 hover:scale-105 min-w-[120px]"
-              >
-                <Logo className="text-primary-foreground cursor-pointer" />
-              </Link>
-            </div>
-
-            <p className="text-xs md:text-sm text-primary-foreground/80 leading-relaxed pr-2">
-              Cultivating a sustainable future through innovative agricultural solutions.
-            </p>
-
-            <div className="mt-6 flex space-x-4">
-              <Link 
-                href="#" 
-                aria-label="Facebook"
-                className="p-2 rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-all duration-300 hover:scale-110"
-              >
-                <Facebook className="h-5 w-5 text-primary-foreground/80" />
-              </Link>
-
-              <Link 
-                href="#" 
-                aria-label="Twitter"
-                className="p-2 rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-all duration-300 hover:scale-110"
-              >
-                <Twitter className="h-5 w-5 text-primary-foreground/80" />
-              </Link>
-
-              <Link 
-                href="#" 
-                aria-label="LinkedIn"
-                className="p-2 rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-all duration-300 hover:scale-110"
-              >
-                <Linkedin className="h-5 w-5 text-primary-foreground/80" />
-              </Link>
-            </div>
-          </div>
-
-          {/* Quick Links */}
+    <footer className="bg-[#172c20] text-white">
+      <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
+        <div className="grid gap-12 py-14 sm:grid-cols-2 sm:py-20 lg:grid-cols-[1.2fr_.7fr_1.1fr] lg:gap-20">
           <div>
-            <h3 className="font-headline font-bold text-lg mb-6 pb-2 relative inline-block 
-            after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 
-            after:bg-accent-foreground after:rounded-full">
-              Quick Links
-            </h3>
-
-            <ul className="space-y-2">
-              <li>
-                <Link 
-                  href="/" 
-                  prefetch={true}
-                  className="flex items-center gap-1 text-primary-foreground/80 hover:text-white transition-all duration-300 hover:pl-1 text-sm"
-                >
-                  <ExternalLink className="h-3 w-3" />
-                  Home
-                </Link>
-              </li>
-
-              <li>
-                <Link 
-                  href="/about" 
-                  prefetch={true}
-                  className="flex items-center gap-1 text-primary-foreground/80 hover:text-white transition-all duration-300 hover:pl-1 text-sm"
-                >
-                  <ExternalLink className="h-3 w-3" />
-                  About Us
-                </Link>
-              </li>
-
-              <li>
-                <Link 
-                  href="/products" 
-                  prefetch={true}
-                  className="flex items-center gap-1 text-primary-foreground/80 hover:text-white transition-all duration-300 hover:pl-1 text-sm"
-                >
-                  <ExternalLink className="h-3 w-3" />
-                  Products
-                </Link>
-              </li>
-
-              <li>
-                <Link 
-                  href="/contact" 
-                  prefetch={true}
-                  className="flex items-center gap-1 text-primary-foreground/80 hover:text-white transition-all duration-300 hover:pl-1 text-sm"
-                >
-                  <ExternalLink className="h-3 w-3" />
-                  Contact
-                </Link>
-              </li>
-            </ul>
+            <Link href="/" aria-label="MD Agro home" className="inline-flex rounded-md">
+              <Logo className="min-w-0 text-white [&_img]:h-11 [&_img]:w-11 [&_span:first-of-type]:text-base [&_span:first-of-type]:text-white [&_span:last-of-type]:text-white/55" />
+            </Link>
+            <p className="mt-5 max-w-sm text-sm leading-6 text-white/60">MD Agro Solution &amp; Trading Co.</p>
           </div>
 
-          {/* Contact Info */}
+          <nav aria-label="Footer navigation">
+            <h2 className="text-[10px] font-semibold uppercase tracking-[.2em] text-white/60">Explore</h2>
+            <ul className="mt-5 space-y-3">
+              {navigation.map((link) => (
+                <li key={link.href}><Link href={link.href} className="group inline-flex items-center gap-2 text-sm text-white/75 transition-colors hover:text-white">{link.label}<ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100" /></Link></li>
+              ))}
+            </ul>
+          </nav>
+
           <div>
-            <h3 className="font-headline font-bold text-lg mb-6 pb-2 relative inline-block 
-            after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 
-            after:bg-accent-foreground after:rounded-full">
-              Contact Info
-            </h3>
-
-            <ul className="space-y-3 text-sm">
-              <li className="flex items-start gap-2 text-primary-foreground/80">
-                <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                <span className="pr-1">Shed B8 & B9 MUMBAI AGRA Highway, Adgaon, Nashik 422003</span>
-              </li>
-
-              <li className="flex items-center gap-2 text-primary-foreground/80">
-                <Phone className="h-4 w-4 flex-shrink-0" />
-                <span>+91 7249512616</span>
-              </li>
-
-              <li className="flex items-center gap-2 text-primary-foreground/80">
-                <Mail className="h-4 w-4 flex-shrink-0" />
-                <span>mdagrosolution1626@gmail.com</span>
-              </li>
+            <h2 className="text-[10px] font-semibold uppercase tracking-[.2em] text-white/60">Contact</h2>
+            <ul className="mt-5 space-y-4 text-sm text-white/70">
+              <li className="flex items-start gap-3"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[#d9bb78]" /><span>Shed B8 &amp; B9 Mumbai Agra Highway,<br />Adgaon, Nashik 422003</span></li>
+              <li className="flex items-center gap-3"><Phone className="h-4 w-4 shrink-0 text-[#d9bb78]" /><a href="tel:+917249512616" className="transition-colors hover:text-white">+91 7249512616</a></li>
+              <li className="flex items-start gap-3"><Mail className="mt-0.5 h-4 w-4 shrink-0 text-[#d9bb78]" /><a href="mailto:mdagrosolution1626@gmail.com" className="break-all transition-colors hover:text-white">mdagrosolution1626@gmail.com</a></li>
             </ul>
-          </div>
-
-          {/* Business Hours + Newsletter */}
-          <div>
-            <h3 className="font-headline font-bold text-lg mb-6 pb-2 relative inline-block 
-            after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 
-            after:bg-accent-foreground after:rounded-full">
-              Business Hours
-            </h3>
-
-            <ul className="space-y-2 text-sm text-primary-foreground/80">
-              <li className="flex justify-between">
-                <span>Mon – Sun</span>
-                <span className="font-medium">24 Hours</span>
-              </li>
-            </ul>
-
-            <div className="mt-6">
-              <h4 className="font-bold text-primary-foreground/90 mb-2 text-sm">Newsletter</h4>
-              <div className="flex">
-                <input 
-                  type="email" 
-                  placeholder="Your email" 
-                  className="px-3 py-2 rounded-l-lg w-full text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
-                />
-                <button className="bg-accent text-accent-foreground px-3 py-2 rounded-r-lg hover:bg-accent/90 transition-colors text-sm">
-                  Join
-                </button>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        {/* Bottom Bar */}
-        <div className="mt-8 pt-6 border-t border-primary-foreground/20">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-3 text-center md:text-left">
-            <p className="text-xs text-primary-foreground/60 max-w-[250px]">
-              &copy; {new Date().getFullYear()} MD Agro Solution & Trading Co.
-            </p>
-
-            <div className="flex gap-3 flex-wrap justify-center">
-              <Link href="#" className="text-primary-foreground/60 hover:text-white transition-colors text-xs whitespace-nowrap">
-                Privacy
-              </Link>
-              <Link href="#" className="text-primary-foreground/60 hover:text-white transition-colors text-xs whitespace-nowrap">
-                Terms
-              </Link>
-              <Link href="#" className="text-primary-foreground/60 hover:text-white transition-colors text-xs whitespace-nowrap">
-                Sitemap
-              </Link>
-            </div>
           </div>
         </div>
 
+        <div className="flex flex-col gap-3 border-t border-white/10 py-5 text-xs text-white/60 sm:flex-row sm:items-center sm:justify-between">
+          <p>© {new Date().getFullYear()} MD Agro Solution &amp; Trading Co.</p>
+          <p>Agricultural products and company information.</p>
+        </div>
       </div>
     </footer>
   );

@@ -1,149 +1,97 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { Goal, Lightbulb, Tractor, Leaf, Users, Award } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import type { Metadata } from 'next';
+import { ArrowRight, ArrowUpRight, Leaf, Sprout } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { AnimatedSection } from '@/components/animated-section';
 
-export default function AboutUsPage() {
-  const teamImage = PlaceHolderImages.find(img => img.id === 'about-us-team');
+export const metadata: Metadata = {
+  title: 'About | MD Agro Solution & Trading Co.',
+  description: 'Learn about MD Agro Solution & Trading Co. and explore its agricultural product range.',
+};
 
+export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-accent/10">
-      <div className="container mx-auto px-4 py-16 md:py-24">
-        <div className="text-center mb-20 relative">
-          <AnimatedSection animationClass="animate-slide-up" delay={100}>
-            <p className="text-lg font-semibold text-primary/80">About Us</p>
-          </AnimatedSection>
-          <AnimatedSection animationClass="animate-fade-in-up" delay={200}>
-            <h1 className="mt-4 text-4xl md:text-5xl lg:text-6xl font-headline font-bold tracking-tight sm:text-5xl bg-gradient-to-r from-primary to-green-600 bg-clip-text text-transparent">
-              Pioneering the Future of Agriculture
-            </h1>
-          </AnimatedSection>
-          <AnimatedSection animationClass="animate-fade-in-up" delay={300}>
-            <p className="mt-6 max-w-3xl mx-auto text-lg md:text-xl text-foreground/80 leading-relaxed">
-              At MD Agro Solution & Trading Co., we are dedicated to merging tradition with technology to create a more prosperous and sustainable world for farmers.
-            </p>
-          </AnimatedSection>
-          <div className="w-24 h-1 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto mt-6 rounded-full"></div>
-        </div>
-
-        <div className="mt-20 grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          <AnimatedSection animationClass="animate-slide-up" delay={400}>
-            <div className="group bg-card border border-border hover:border-primary/30 transition-all duration-500 hover-lift rounded-2xl p-6 text-center shadow-lg hover:shadow-xl">
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-primary to-green-600 text-primary-foreground mb-6 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
-                <Goal className="h-8 w-8 relative z-10" />
-              </div>
-              <CardTitle className="font-headline text-2xl mt-4 text-foreground group-hover:text-primary transition-colors">
-                Our Mission
-              </CardTitle>
-              <CardContent className="pt-4 p-0">
-                <p className="text-foreground/80 group-hover:text-foreground transition-colors">
-                  To empower farmers with high-quality, innovative, and sustainable agricultural products that enhance productivity and profitability while preserving the environment.
-                </p>
-              </CardContent>
-            </div>
-          </AnimatedSection>
-          
-          <AnimatedSection animationClass="animate-slide-up" delay={500}>
-            <div className="group bg-card border border-border hover:border-primary/30 transition-all duration-500 hover-lift rounded-2xl p-6 text-center shadow-lg hover:shadow-xl">
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-primary to-green-600 text-primary-foreground mb-6 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
-                <Lightbulb className="h-8 w-8 relative z-10" />
-              </div>
-              <CardTitle className="font-headline text-2xl mt-4 text-foreground group-hover:text-primary transition-colors">
-                Our Vision
-              </CardTitle>
-              <CardContent className="pt-4 p-0">
-                <p className="text-foreground/80 group-hover:text-foreground transition-colors">
-                  To be a global leader in agricultural solutions, recognized for our commitment to quality, farmer success, and ecological balance.
-                </p>
-              </CardContent>
-            </div>
-          </AnimatedSection>
-          
-          <AnimatedSection animationClass="animate-slide-up" delay={600}>
-            <div className="group bg-card border border-border hover:border-primary/30 transition-all duration-500 hover-lift rounded-2xl p-6 text-center shadow-lg hover:shadow-xl">
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-primary to-green-600 text-primary-foreground mb-6 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
-                <Tractor className="h-8 w-8 relative z-10" />
-              </div>
-              <CardTitle className="font-headline text-2xl mt-4 text-foreground group-hover:text-primary transition-colors">
-                Our Approach
-              </CardTitle>
-              <CardContent className="pt-4 p-0">
-                <p className="text-foreground/80 group-hover:text-foreground transition-colors">
-                  We combine scientific research with on-the-ground experience to develop practical, effective products that address real-world farming challenges.
-                </p>
-              </CardContent>
-            </div>
+    <div className="bg-background">
+      <section className="relative overflow-hidden bg-[#213c2d] text-white">
+        <div className="absolute -right-32 -top-44 h-[35rem] w-[35rem] rounded-full border border-white/[.09]" />
+        <div className="absolute -right-14 -top-28 h-[28rem] w-[28rem] rounded-full border border-white/[.09]" />
+        <div className="relative mx-auto max-w-[1440px] px-5 pb-20 pt-20 sm:px-8 sm:pb-28 sm:pt-28 lg:px-12">
+          <AnimatedSection animationClass="animate-slide-up" className="max-w-4xl">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/[.07] px-3.5 py-2 text-[10px] font-semibold uppercase tracking-[.2em] text-white/75"><Leaf className="h-3.5 w-3.5 text-[#d9bb78]" /> About MD Agro</span>
+            <h1 className="mt-7 text-4xl font-medium leading-[1.02] tracking-[-.055em] sm:text-6xl lg:text-7xl">Agricultural products, <span className="font-serif italic font-normal text-[#d9bb78]">from MD Agro.</span></h1>
+            <p className="mt-6 max-w-2xl text-base leading-7 text-white/70 sm:text-lg sm:leading-8">MD Agro Solution &amp; Trading Co. is an agricultural products company. This is a place to learn about the company and browse its product catalog.</p>
           </AnimatedSection>
         </div>
+      </section>
 
-        <div className="mt-32 text-center">
-          <AnimatedSection animationClass="animate-slide-up" delay={200}>
-            <h2 className="text-3xl md:text-4xl font-headline font-bold text-primary bg-gradient-to-r from-primary to-green-600 bg-clip-text text-transparent mb-4">
-              Meet Our Leadership
-            </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto mt-4 rounded-full"></div>
+      <section className="mx-auto grid max-w-[1280px] gap-10 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-[.65fr_1.35fr] lg:gap-24 lg:px-12">
+        <AnimatedSection animationClass="animate-slide-up">
+          <p className="text-xs font-semibold uppercase tracking-[.2em] text-primary">Who we are</p>
+          <div className="mt-5 h-px w-14 bg-accent" />
+        </AnimatedSection>
+        <AnimatedSection animationClass="animate-slide-up" delay={100}>
+          <h2 className="text-3xl font-medium leading-tight tracking-[-.045em] sm:text-5xl">A company focused on agricultural products and the people who use them.</h2>
+          <p className="mt-6 max-w-2xl text-base leading-7 text-muted-foreground">The MD Agro catalog includes products across fertilizer and crop nutrition categories. Product-specific information is presented on each product page where it is available.</p>
+          <Button asChild className="mt-8 h-12 rounded-full px-6"><Link href="/products" className="gap-2">Explore products <ArrowUpRight className="h-4 w-4" /></Link></Button>
+        </AnimatedSection>
+      </section>
+
+      <section className="bg-muted px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
+        <div className="mx-auto max-w-[1280px]">
+          <AnimatedSection animationClass="animate-slide-up" className="mb-10 max-w-2xl">
+            <p className="text-xs font-semibold uppercase tracking-[.2em] text-primary">Our approach</p>
+            <h2 className="mt-4 text-3xl font-medium tracking-[-.045em] sm:text-5xl">Useful product information, clearly presented.</h2>
+            <p className="mt-5 text-sm leading-7 text-muted-foreground sm:text-base">Explore the catalog by category, then review each product’s available specifications, composition, benefits, usage, safety, crops and packaging information.</p>
           </AnimatedSection>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto mt-16">
-            <AnimatedSection animationClass="animate-slide-up" delay={300}>
-              <div className="flex flex-col items-center group">
-                <div className="relative w-48 h-48 rounded-full overflow-hidden shadow-2xl mb-6 hover:scale-105 transition-transform duration-500 border-4 border-primary/10 group-hover:border-primary/30">
-                  <img 
-                    src="/Dipu-1.png" 
-                    alt="Dipali Mukund Shelake" 
-                    className="object-cover w-full h-full group-hover:brightness-110 transition-all duration-300" 
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full"></div>
+          <div className="grid gap-4 sm:grid-cols-3">
+            {[
+              { icon: Sprout, title: 'Browse the range', text: 'Use the product catalog to explore available categories and products.' },
+              { icon: Leaf, title: 'Review product details', text: 'Product pages show the information available for each listed item.' },
+              { icon: ArrowRight, title: 'Get in touch', text: 'Contact MD Agro by phone or email for enquiries.' },
+            ].map((item, index) => (
+              <AnimatedSection key={item.title} animationClass="animate-slide-up" delay={index * 70}>
+                <div className="h-full rounded-[1.4rem] border border-border/70 bg-background p-6 sm:p-7">
+                  <span className="grid h-11 w-11 place-items-center rounded-full bg-primary/[.08] text-primary"><item.icon className="h-5 w-5" /></span>
+                  <h3 className="mt-6 text-lg font-semibold tracking-tight">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-muted-foreground">{item.text}</p>
                 </div>
-                <h3 className="text-2xl font-headline font-bold text-foreground group-hover:text-primary transition-colors">
-                  Dipali Mukund Shelake
-                </h3>
-                <p className="text-lg text-primary font-semibold mb-2">Founder</p>
-                <p className="text-sm text-muted-foreground text-center max-w-xs group-hover:text-foreground transition-colors">
-                  Visionary leader driving innovation in agricultural solutions
-                </p>
-              </div>
-            </AnimatedSection>
-            
-            <AnimatedSection animationClass="animate-slide-up" delay={400}>
-              <div className="flex flex-col items-center group">
-                <div className="relative w-48 h-48 rounded-full overflow-hidden shadow-2xl mb-6 hover:scale-105 transition-transform duration-500 border-4 border-primary/10 group-hover:border-primary/30">
-                  <img 
-                    src="/owner.jpeg" 
-                    alt="Shelke Mukund Punjaram" 
-                    className="object-cover w-full h-full group-hover:brightness-110 transition-all duration-300" 
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full"></div>
-                </div>
-                <h3 className="text-xl font-headline font-semibold text-foreground group-hover:text-primary transition-colors">
-                  Shelke Mukund Punjaram
-                </h3>
-                <p className="text-sm text-primary font-medium">Co-Founder & Director</p>
-              </div>
-            </AnimatedSection>
+              </AnimatedSection>
+            ))}
           </div>
         </div>
-        
-        <div className="mt-32 text-center bg-gradient-to-br from-card to-accent/20 border border-border rounded-2xl p-12 shadow-2xl max-w-4xl mx-auto">
-          <AnimatedSection animationClass="animate-slide-up" delay={500}>
-            <div className="flex justify-center mb-6">
-              <div className="flex items-center justify-center h-16 w-16 rounded-full bg-gradient-to-br from-primary to-green-600 text-primary-foreground relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
-                <Award className="h-8 w-8 relative z-10" />
+      </section>
+
+      <section className="mx-auto max-w-[1280px] px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
+        <h2 className="mb-8 text-2xl font-medium tracking-tight text-foreground sm:mb-10 sm:text-3xl">Leadership</h2>
+        <div className="grid gap-8 md:grid-cols-2 md:gap-6">
+          <AnimatedSection animationClass="animate-slide-up">
+            <div className="group relative aspect-[1.12/1] overflow-hidden rounded-[1.8rem] bg-[#e9e8df]">
+              <Image src="/Dipu-1.png" alt="Dipali Mukund Shelake" fill sizes="(max-width: 768px) 95vw, 560px" className="object-cover transition-transform duration-500 group-hover:scale-[1.025]" />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent p-6 pt-20 text-white sm:p-8 sm:pt-24">
+                <p className="text-[10px] font-semibold uppercase tracking-[.18em] text-white/70">Founder</p>
+                <h3 className="mt-2 text-xl font-medium sm:text-2xl">Dipali Mukund Shelake</h3>
               </div>
             </div>
-            <h2 className="text-3xl md:text-4xl font-headline font-bold text-primary bg-gradient-to-r from-primary to-green-600 bg-clip-text text-transparent mb-4">
-              Our Commitment to Excellence
-            </h2>
-            <p className="mt-4 max-w-3xl mx-auto text-lg md:text-xl text-foreground/90 leading-relaxed">
-              MD Agro Solution & Trading Co. is a team of passionate scientists, agronomists, and professionals working hand-in-hand with farmers.
-            </p>
+          </AnimatedSection>
+          <AnimatedSection animationClass="animate-slide-up" delay={100}>
+            <div className="group relative aspect-[1.12/1] overflow-hidden rounded-[1.8rem] bg-[#e9e8df]">
+              <Image src="/owner.jpeg" alt="Shelke Mukund Punjaram" fill sizes="(max-width: 768px) 95vw, 560px" className="object-cover transition-transform duration-500 group-hover:scale-[1.025]" />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent p-6 pt-20 text-white sm:p-8 sm:pt-24">
+                <p className="text-[10px] font-semibold uppercase tracking-[.18em] text-white/70">Co-Founder &amp; Director</p>
+                <h3 className="mt-2 text-xl font-medium sm:text-2xl">Shelke Mukund Punjaram</h3>
+              </div>
+            </div>
           </AnimatedSection>
         </div>
-      </div>
+      </section>
+
+      <section className="px-5 pb-20 sm:px-8 sm:pb-28 lg:px-12">
+        <div className="mx-auto flex max-w-[1280px] flex-col items-start justify-between gap-8 rounded-[1.8rem] bg-[#213c2d] p-8 text-white sm:flex-row sm:items-center sm:p-12">
+          <div><p className="text-xs font-semibold uppercase tracking-[.2em] text-white/60">MD Agro Solution &amp; Trading Co.</p><h2 className="mt-3 text-2xl font-medium tracking-tight sm:text-3xl">Explore the product catalog.</h2></div>
+          <Button asChild className="h-12 shrink-0 rounded-full bg-[#d9bb78] px-6 text-[#17271f] hover:bg-[#e6ce98]"><Link href="/products" className="gap-2">View products <ArrowRight className="h-4 w-4" /></Link></Button>
+        </div>
+      </section>
     </div>
   );
 }
